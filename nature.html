@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nature | Merve Kılıç</title>
+    <style>
+      /* 1. SAYFA GENELİ */
+      body {
+        background-color: #000;
+        color: #fff;
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 40px;
+      }
+
+      /* 2. GERİ DÖN BUTONU */
+      .back-button {
+        display: inline-block;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.6);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 5px 0;
+        font-size: 20px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 60px;
+        transition: all 0.4s ease;
+      }
+
+      .back-button:hover {
+        color: #fff;
+        border-bottom: 1px solid #fff;
+        padding-left: 10px; /* Fareyle üzerine gelince sağa kayma efekti */
+      }
+
+      /* 1. Kapsayıcıdaki taşmaları engelle */
+      .gallery {
+        column-count: 3;
+        column-gap: 20px;
+        padding-bottom: 50px;
+        /* Ekstra güvenlik satırı: */
+        perspective: 1000px;
+      }
+
+      /* 2. Resimlerin kutusunu sabitle */
+      .gallery-item {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideUp 0.8s ease-out forwards;
+
+        /* ÇÖZÜM BURADA: Tarayıcıya bu elementin bir katman olduğunu bildir */
+        backface-visibility: hidden;
+        -webkit-column-break-inside: avoid; /* Resmin sütun arasında bölünmesini engeller */
+        break-inside: avoid;
+      }
+
+      /* 3. Hover efektini sadeleştir ve zorla */
+      .gallery-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 4px;
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        /* Resmin kaybolmasını engelleyen en önemli satır: */
+        transform: translateZ(0);
+        will-change: transform;
+      }
+
+      .gallery-item:hover img {
+        /* Ölçeği çok az küçültüyoruz (1.03 -> 1.02) daha stabil olması için */
+        transform: scale(1.02) translateZ(0);
+        opacity: 1 !important;
+      }
+
+      /* Animasyon bittikten sonra görünür kalmasını sağlayan komut */
+      .gallery-item {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(30px);
+        /* forwards komutu animasyon bittiğinde son halini (opacity:1) korur */
+        animation: slideUp 0.8s ease-out forwards;
+      }
+
+      /* 4. SIRALI GİRİŞ ANİMASYONU (Delay) */
+      .gallery-item:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .gallery-item:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .gallery-item:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .gallery-item:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .gallery-item:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+
+      @keyframes slideUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* 5. MOBİL UYUMLULUK */
+      @media (max-width: 900px) {
+        .gallery {
+          column-count: 2;
+        }
+      }
+      @media (max-width: 600px) {
+        .gallery {
+          column-count: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="index.html" class="back-button">← PORTFOLIO</a>
+
+    <h1 style="letter-spacing: 10px; font-weight: 300; margin-bottom: 50px">
+      NATURE
+    </h1>
+
+    <div class="gallery">
+      <div class="gallery-item"><img src="photodoğa1.webp" alt="DOĞA 1" /></div>
+      <div class="gallery-item"><img src="photodoğa2.webp" alt="DOĞA 2" /></div>
+      <div class="gallery-item"><img src="doğaphoto.webp" alt="DOĞA 3" /></div>
+      <div class="gallery-item">
+        <img src="doğaphotısuu.webp" alt="DOĞA 4" />
+      </div>
+    </div>
+    <div
+      style="
+        margin-top: 100px;
+        text-align: center;
+        border-top: 1px solid #222;
+        padding-top: 50px;
+      "
+    >
+      <p style="font-size: 20px; letter-spacing: 2px; color: #555">
+        NEXT CATEGORY
+      </p>
+      <a
+        href="light-shadow.html"
+        style="
+          color: #fff;
+          text-decoration: none;
+          font-size: 2rem;
+          letter-spacing: 5px;
+          text-transform: uppercase;
+        "
+        >LIGHT&SHADOW →</a
+      >
+    </div>
+  </body>
+</html>

@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Merve Kılıç | Portfolyo</title>
+    <style>
+      /* 1. SAYFA GENELİ */
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: #000; /* Siyah arka plan */
+        color: #fff; /* Beyaz yazı */
+        font-family: "Arial", sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* 2. ÜST MENÜ (NAVBAR) */
+      .navbar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between; /* Logo solda, linkler sağda kalır */
+        align-items: center;
+        padding: 30px 50px;
+        box-sizing: border-box;
+        z-index: 100;
+      }
+
+      .nav-logo {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        font-weight: bold;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 30px;
+        margin-left: auto; /* Linkleri sağa doğru iter */
+        margin-right: 100px; /* IG ikonuyla arasına boşluk koyar */
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 1px;
+        opacity: 0.8;
+        transition: 0.3s;
+      }
+
+      .nav-links a:hover {
+        opacity: 1; /* Üzerine gelince parlar */
+      }
+
+      /* 3. GİRİŞ BÖLÜMÜ (HERO) */
+      .hero {
+        position: relative;
+        height: 100vh;
+        display: flex;
+        justify-content: flex-end; /* Yazıyı sağa yaslar */
+        align-items: center;
+        padding-right: 10%; /* Sağdan estetik boşluk */
+      }
+
+      /* 4. ARKA PLAN FOTOĞRAFI */
+      .hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 20% center; /* Fotoğrafı sola kaydırır */
+        opacity: 0.5; /* Yazının netliği için biraz daha kararttık */
+        z-index: 1;
+      }
+
+      /* 5. YAZI ALANI */
+      .hero-text {
+        position: relative;
+        z-index: 2;
+        text-align: right; /* Yazıları kendi içinde sağa hizalar */
+      }
+
+      h1 {
+        font-size: 4.5rem;
+        margin: 0;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      p {
+        font-size: 1.2rem;
+        letter-spacing: 8px;
+        margin-top: 10px;
+        color: #ccc;
+      }
+      /* 📸 6. GALERİ TASARIMI (RECENT WORKS) */
+      .recent-works {
+        padding: 50px 50px;
+        background-color: #000;
+        text-align: center;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 300;
+        letter-spacing: 5px;
+        margin-bottom: 60px;
+        text-transform: uppercase;
+      }
+
+      .works-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4 eşit sütun oluşturur */
+        gap: 20px; /* Kareler arası boşluk */
+      }
+
+      .work-item {
+        position: relative;
+        height: 500px; /* Karelerin yüksekliği */
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .work-item img {
+        width: 70%;
+        height: 70%;
+        object-fit: cover; /* Fotoğrafı kareye sığdırır */
+        transition: transform 0.5s ease;
+      }
+
+      /* Yazı Katmanı (Overlay) Düzenlemesi */
+      .work-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(
+          0,
+          0,
+          0,
+          0.5
+        ); /* Fotoğrafı hafifçe karartarak yazıyı ön plana çıkarır */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 1; /* Yazı her zaman görünsün */
+        transition: background 0.3s ease;
+      }
+
+      /* Kategori Başlık Yazısı Stili */
+      .work-overlay span {
+        color: #ffffff !important; /* Yazı rengini tam beyaz yapıyoruz */
+        font-size: 1.2rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        font-weight: 300;
+        text-align: center;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8); /* Yazının arkasına hafif gölge ekleyerek netliği artırır */
+      }
+
+      /* Üzerine gelince (Hover) efekti */
+      .work-item:hover .work-overlay {
+        background: rgba(
+          0,
+          0,
+          0,
+          0.2
+        ); /* Üzerine gelince fotoğraf biraz daha aydınlanır */
+      }
+
+      /* ✨ ETKİLEŞİM: Üzerine gelince fotoğraf hafif büyüsün */
+      .work-item:hover img {
+        transform: scale(1.1);
+      }
+      /* Galeriyi 2x2 veya yan yana dizmek için (4 kategori olduğu için) */
+      .works-grid {
+        display: grid;
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(300px, 1fr)
+        ); /* Ekran boyutuna göre 2 veya 4 sıralar */
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .work-item {
+        position: relative;
+        height: 500px;
+        overflow: hidden;
+        background: #111;
+      }
+
+      /* Üzerine gelince kategori isminin görünümü */
+      .work-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none; /* Altındaki kaydırma işlemini engellemez */
+        transition: 0.3s;
+      }
+
+      .work-overlay span {
+        font-size: 1.2rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        font-weight: 300;
+      }
+
+      .work-item:hover .work-overlay {
+        background: rgba(0, 0, 0, 0.2); /* Üzerine gelince biraz aydınlanır */
+      }
+      /* Yazıların başlangıç hali (görünmez ve aşağıda) */
+      h1,
+      p {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideUp 1s ease-out forwards;
+      }
+      /* Meslek yazısı (p) biraz daha geç gelsin ki estetik dursun */
+      .hero-text p {
+        animation-delay: 0.5s;
+      }
+
+      /* Kayma Animasyonu Tanımı */
+      @keyframes slideUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-logo">TheArtOfMerve</div>
+      <ul class="nav-links">
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-social">
+        <a href="#" style="color: white; text-decoration: none">IG</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <img src="back.webp" class="hero-bg" alt="Kapak Fotoğrafı" />
+      <div class="hero-text">
+        <h1>Merve Kılıç</h1>
+        <p>PHOTOGRAPHY</p>
+      </div>
+    </section>
+
+    <section id="portfolio" class="recent-works">
+      <h2 class="section-title">Recent Works</h2>
+      <div class="works-grid">
+        <a href="architectural.html" class="work-item">
+          <img src="kapak1.webp" alt="mimari" />
+          <div class="work-overlay">
+            <span>architectural</span>
+          </div>
+        </a>
+
+        <a href="product.html" class="work-item">
+          <img src="kapak2.webp" alt="ürün" />
+          <div class="work-overlay">
+            <span>product</span>
+          </div>
+        </a>
+
+        <a href="nature.html" class="work-item">
+          <img src="kapak3.webp" alt="doğa" />
+          <div class="work-overlay">
+            <span>nature</span>
+          </div>
+        </a>
+
+        <a href="light-shadow.html" class="work-item">
+          <img src="kapak4.webp" alt="ışıkgölge" />
+          <div class="work-overlay">
+            <span>light&shadow</span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </body>
+</html>
