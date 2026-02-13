@@ -84,6 +84,16 @@
         object-position: 20% center; /* Fotoğrafı sola kaydırır */
         opacity: 0.5; /* Yazının netliği için biraz daha kararttık */
         z-index: 1;
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 1) 70%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        mask-image: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 1) 70%,
+          rgba(0, 0, 0, 0) 100%
+        );
       }
 
       /* 5. YAZI ALANI */
@@ -91,10 +101,12 @@
         position: relative;
         z-index: 2;
         text-align: right; /* Yazıları kendi içinde sağa hizalar */
+        position: relative;
+        left: 50px; /* Sadece yazıları bağımsız olarak sağa iter */
       }
 
       h1 {
-        font-size: 4.5rem;
+        font-size: 3.5rem;
         margin: 0;
         letter-spacing: 5px;
         text-transform: uppercase;
@@ -126,19 +138,28 @@
         display: grid;
         grid-template-columns: repeat(4, 1fr); /* 4 eşit sütun oluşturur */
         gap: 20px; /* Kareler arası boşluk */
+        margin-top: 60px; /* Başlıktan aşağıya doğru 60px itelim ⬇️ */
+        padding: 0 50px;
       }
 
       .work-item {
         position: relative;
-        height: 500px; /* Karelerin yüksekliği */
+        height: 100px; /* Karelerin yüksekliği */
         overflow: hidden;
         cursor: pointer;
-      }
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 2/3; /* Tüm fotoğrafları aynı boyutta (dikey) tutar 📏 */
+        display: flex; /* İçeriği yönetmek için */
+        align-items: center; /* Dikeyde tam ortalar 🎯 */
+        justify-content: center; /* Yatayda tam ortalar */
+        background-color: #0a0a0a; /* Boşlu
+            }
 
-      .work-item img {
-        width: 70%;
-        height: 70%;
-        object-fit: cover; /* Fotoğrafı kareye sığdırır */
+            .work-item img {
+              width: 70%;
+              height: 70%;
+              object-fit: cover; /* Fotoğrafı kareye sığdırır */
         transition: transform 0.5s ease;
       }
 
@@ -252,7 +273,7 @@
       /* Sosyal Medya İkonu Stili */
       .social-link {
         color: #ffffff; /* Rengi beyaz yap */
-        font-size: 2.0rem; /* Boyutu büyüt (İstediğin gibi değiştirebilirsin: 1.2rem, 2rem vs.) */
+        font-size: 2rem; /* Boyutu büyüt (İstediğin gibi değiştirebilirsin: 1.2rem, 2rem vs.) */
         text-decoration: none; /* Alt çizgiyi kaldır */
         transition: all 0.3s ease; /* Yumuşak geçiş efekti */
         display: flex; /* Hizalama için */
@@ -265,15 +286,56 @@
         color: #cccccc; /* Rengi hafif grileştir */
         transform: translateY(-3px); /* Hafifçe yukarı hareket ettir */
       }
+      .lang-switcher {
+        margin-left: 25px;
+        font-size: 11px;
+        letter-spacing: 2px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .lang-switcher span {
+        cursor: pointer;
+        opacity: 0.5; /* Seçili olmayanlar daha sönük durur */
+        transition: all 0.3s ease;
+        position: relative;
+        padding-bottom: 2px;
+      }
+
+      /* Üzerine gelince parlama */
+      .lang-switcher span:hover {
+        opacity: 1;
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+      }
+
+      /* Aktif (Seçili) Dilin Stili */
+      .lang-switcher span.active {
+        opacity: 1;
+        border-bottom: 1px solid white; /* Altına ince bir çizgi çeker */
+      }
+
+      .lang-switcher .separator {
+        cursor: default;
+        opacity: 0.3;
+      }
     </style>
   </head>
   <body>
     <nav class="navbar">
       <div class="nav-logo">TheArtOfMerve</div>
       <ul class="nav-links">
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="about.html" class="nav-link">ABOUT</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li>
+          <a href="#portfolio" class="lang-key" id="nav-portfolio">Portfolio</a>
+        </li>
+        <li>
+          <a href="about.html" class="nav-link lang-key" id="nav-about"
+            >ABOUT</a
+          >
+        </li>
+        <li>
+          <a href="#contact" class="lang-key" id="nav-contact">Contact</a>
+        </li>
       </ul>
       <div class="nav-social">
         <a
@@ -284,47 +346,109 @@
           <i class="fa-brands fa-instagram"></i>
         </a>
       </div>
+      <div class="lang-switcher">
+        <span onclick="setLanguage('tr')" id="lang-tr">TR</span>
+        <span class="separator">|</span>
+        <span onclick="setLanguage('en')" id="lang-en">EN</span>
+      </div>
     </nav>
 
     <section class="hero">
       <img src="back.webp" class="hero-bg" alt="Kapak Fotoğrafı" />
       <div class="hero-text">
         <h1>Merve Kılıç</h1>
-        <p>PHOTOGRAPHY</p>
+        <p class="lang-key" id="hero-sub">PHOTOGRAPHY</p>
       </div>
     </section>
 
     <section id="portfolio" class="recent-works">
-      <h2 class="section-title">Recent Works</h2>
+      <h2 class="section-title lang-key" id="section-works">Recent Works</h2>
       <div class="works-grid">
         <a href="architectural.html" class="work-item">
           <img src="kapak1.webp" alt="mimari" />
           <div class="work-overlay">
-            <span>architectural</span>
+            <span class="lang-key" id="work-arch">architectural</span>
           </div>
         </a>
 
         <a href="product.html" class="work-item">
           <img src="kapak2.webp" alt="ürün" />
           <div class="work-overlay">
-            <span>product</span>
+            <span class="lang-key" id="work-prod">product</span>
           </div>
         </a>
 
         <a href="nature.html" class="work-item">
           <img src="kapak3.webp" alt="doğa" />
           <div class="work-overlay">
-            <span>nature</span>
+            <span class="lang-key" id="work-nature">nature</span>
           </div>
         </a>
 
         <a href="light-shadow.html" class="work-item">
           <img src="kapak4.webp" alt="ışıkgölge" />
           <div class="work-overlay">
-            <span>light&shadow</span>
+            <span class="lang-key" id="work-light">light&shadow</span>
           </div>
         </a>
       </div>
     </section>
+    <script>
+      // 1. Sözlüğümüzü hazırlıyoruz (Her ID'nin karşılığını yazıyoruz)
+      const translations = {
+        en: {
+          "nav-portfolio": "Portfolio",
+          "nav-about": "ABOUT",
+          "nav-contact": "Contact",
+          "hero-sub": "PHOTOGRAPHY",
+          "section-works": "Recent Works",
+          "work-arch": "architectural",
+          "work-prod": "product",
+          "work-nature": "nature",
+          "work-light": "light&shadow",
+        },
+        tr: {
+          "nav-portfolio": "Portfolyo",
+          "nav-about": "HAKKIMDA",
+          "nav-contact": "İletişim",
+          "hero-sub": "FOTOĞRAFÇILIK",
+          "section-works": "Son Çalışmalar",
+          "work-arch": "mimari",
+          "work-prod": "ürün",
+          "work-nature": "doğa",
+          "work-light": "ışık & gölge",
+        },
+      };
+      // 2. Dili değiştiren fonksiyon
+      function setLanguage(lang) {
+        // Tüm 'lang-key' sınıfına sahip öğeleri bul
+        const elements = document.querySelectorAll(".lang-key");
+
+        elements.forEach((el) => {
+          const id = el.getAttribute("id");
+          if (translations[lang][id]) {
+            el.textContent = translations[lang][id];
+          }
+        });
+
+        // --- YENİ EKLENEN KISIM BURASI ---
+        // Önce her iki butondan da 'active' sınıfını çıkarıyoruz
+        document.getElementById("lang-tr").classList.remove("active");
+        document.getElementById("lang-en").classList.remove("active");
+
+        // Sonra seçilen dile (lang) 'active' sınıfını ekliyoruz
+        document.getElementById("lang-" + lang).classList.add("active");
+        // --------------------------------
+
+        // Seçimi hafızaya kaydet
+        localStorage.setItem("selectedLang", lang);
+      }
+
+      // 3. Sayfa açıldığında son seçilen dili kontrol et
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("selectedLang") || "en";
+        setLanguage(savedLang);
+      });
+    </script>
   </body>
 </html>
