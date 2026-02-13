@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Merve Kılıç | Portfolyo</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
     <style>
       /* 1. SAYFA GENELİ */
       body,
@@ -245,6 +249,22 @@
           transform: translateY(0);
         }
       }
+      /* Sosyal Medya İkonu Stili */
+      .social-link {
+        color: #ffffff; /* Rengi beyaz yap */
+        font-size: 2.0rem; /* Boyutu büyüt (İstediğin gibi değiştirebilirsin: 1.2rem, 2rem vs.) */
+        text-decoration: none; /* Alt çizgiyi kaldır */
+        transition: all 0.3s ease; /* Yumuşak geçiş efekti */
+        display: flex; /* Hizalama için */
+        align-items: center;
+        margin-right: 50px;
+      }
+
+      /* Üzerine gelince ne olsun? */
+      .social-link:hover {
+        color: #cccccc; /* Rengi hafif grileştir */
+        transform: translateY(-3px); /* Hafifçe yukarı hareket ettir */
+      }
     </style>
   </head>
   <body>
@@ -252,11 +272,17 @@
       <div class="nav-logo">TheArtOfMerve</div>
       <ul class="nav-links">
         <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="about.html" class="nav-link">ABOUT</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <div class="nav-social">
-        <a href="#" style="color: white; text-decoration: none">IG</a>
+        <a
+          href="https://www.instagram.com/mervisualss/"
+          target="_blank"
+          class="social-link"
+        >
+          <i class="fa-brands fa-instagram"></i>
+        </a>
       </div>
     </nav>
 

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | Mervisuals</title>
+    <style>
+      /* 1. SAYFA GENELİ */
+      body {
+        background-color: #000; /* Minimalist siyah arka plan */
+        color: #fff;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+
+      /* 2. GERİ DÖN NAVİGASYONU */
+      .back-nav {
+        position: absolute;
+        top: 40px;
+        left: 50px;
+      }
+
+      .back-nav a {
+        display: inline-block;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.6);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 5px 0;
+        font-size: 20px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 60px;
+        transition: all 0.4s ease;
+      }
+
+      .back-nav a:hover {
+        color: #fff;
+        border-bottom: 1px solid #fff;
+        padding-left: 10px; /* Fareyle üzerine gelince sağa kayma efekti */
+      }
+
+      /* 3. ABOUT DÜZENİ */
+      .about-container {
+        display: flex;
+        width: 85%;
+        max-width: 1100px;
+        gap: 80px;
+        align-items: center;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 1s ease-out forwards;
+      }
+
+      .about-image {
+        flex: 1;
+      }
+
+      .about-image img {
+        width: 70%;
+        border-radius: 2px;
+        /* Senin minimalist tarzın için hafif yumuşatma */
+        filter: brightness(0.9);
+      }
+
+      .about-text {
+        flex: 1.2;
+      }
+
+      .about-text h1 {
+        font-size: 2.5rem;
+        letter-spacing: 5px;
+        margin-bottom: 30px;
+        font-weight: 300;
+        text-transform: uppercase;
+      }
+
+      .about-text p {
+        line-height: 1.8;
+        color: #ccc; /* Gözü yormayan yumuşak beyaz */
+        font-size: 1rem;
+        margin-bottom: 20px;
+      }
+
+      .tech-footer {
+        margin-top: 40px;
+        font-size: 10px;
+        letter-spacing: 3px;
+        color: #555;
+        text-transform: uppercase;
+        border-top: 1px solid #222;
+        padding-top: 20px;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* MOBİL UYUM */
+      @media (max-width: 768px) {
+        .about-container {
+          flex-direction: column;
+          text-align: center;
+          padding: 100px 20px;
+        }
+        .back-nav {
+          left: 20px;
+          top: 20px;
+        }
+        .about-text h1 {
+          font-size: 2rem;
+        }
+      }
+      .about-image img {
+        width: 70%; /* Alanı tam doldurması için */
+        max-width: 500px; /* Çok devasa olup metni ezmemesi için */
+        border-radius: 20px; /* Köşeleri belirgin şekilde yuvarlar 🎨 */
+        box-shadow: 0 15px 35px rgba(255, 255, 255, 0.05); /* Altına hafif, yumuşak bir gölge ekler */
+        transition: transform 0.4s ease; /* Üzerine gelince hareket etmesi için hazırlık */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="back-nav">
+      <a href="index.html">← PORTFOLIO</a>
+    </div>
+
+    <div class="about-container">
+      <div class="about-image">
+        <img src="aboutphoto.webp" alt="Merve Kılıç" />
+      </div>
+
+      <div class="about-text">
+        <h1>Merve Kılıç</h1>
+
+        <p>
+          Hello! I'm Merve. I'm a photographer who frequently travels in pursuit
+          of light and aesthetics. Starting with a Nikon D5100 and later
+          continuing with the modern texture of the Fujifilm X-T5, I am on a
+          journey to take this passion, which has been a part of my life since
+          childhood, to a professional level.
+        </p>
+
+        <p>
+          For me, the most exciting part of this work isn't just pressing the
+          shutter button, but capturing the moment with a keen aesthetic eye,
+          then reimagining it through video production and color grading. I
+          share my visual world and stories with you here.
+        </p>
+
+        <div class="tech-footer">
+          Fujifilm X-T5 • Color Grading • Video Production •
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
