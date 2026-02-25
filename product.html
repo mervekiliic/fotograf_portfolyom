@@ -122,12 +122,68 @@
           column-count: 1;
         }
       }
+      /* Morluk Engelleyici ve Geri Butonu Stili */
+      #back-to-portfolio,
+      .back-button,
+      .back-button:visited {
+        color: rgba(255, 255, 255, 0.6) !important;
+        text-decoration: none;
+        transition: all 0.4s ease;
+      }
+      #back-to-portfolio:hover {
+        color: #fff !important;
+        padding-left: 10px;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      }
+      /* Dil Butonları Sabitleme */
+      .lang-switcher {
+        position: fixed;
+        right: 40px;
+        top: 35px;
+        z-index: 9999;
+        display: flex;
+        gap: 12px;
+        font-size: 11px;
+      }
+      .lang-switcher span {
+        cursor: pointer;
+        opacity: 0.4;
+        transition: 0.3s;
+      }
+      .lang-switcher span.active {
+        opacity: 1;
+        border-bottom: 1px solid white;
+      }
+      @media (max-width: 768px) {
+        .back-nav,
+        .lang-switcher {
+          top: 20px;
+          font-size: 10px;
+        }
+        .back-nav {
+          left: 20px;
+        }
+        .lang-switcher {
+          right: 20px;
+        }
+      }
     </style>
   </head>
   <body>
-    <a href="index.html" class="back-button">← PORTFOLIO</a>
+    <div class="lang-switcher">
+      <span onclick="setLanguage('tr')" id="lang-tr">TR</span>
+      <span class="separator">|</span>
+      <span onclick="setLanguage('en')" id="lang-en">EN</span>
+    </div>
+    <a href="index.html" class="lang-key back-button" id="back-to-portfolio"
+      >← PORTFOLIO</a
+    >
 
-    <h1 style="letter-spacing: 10px; font-weight: 300; margin-bottom: 50px">
+    <h1
+      class="lang-key"
+      id="prod-page-title"
+      style="letter-spacing: 10px; font-weight: 300; margin-bottom: 50px"
+    >
       PRODUCT
     </h1>
 
@@ -145,11 +201,17 @@
         padding-top: 50px;
       "
     >
-      <p style="font-size: 20px; letter-spacing: 2px; color: #555">
+      <p
+        class="lang-key"
+        id="next-cat-label"
+        style="font-size: 20px; letter-spacing: 2px; color: #555"
+      >
         NEXT CATEGORY
       </p>
       <a
         href="nature.html"
+        class="lang-key"
+        id="next-cat-nature"
         style="
           color: #fff;
           text-decoration: none;
@@ -160,5 +222,55 @@
         >NATURE →</a
       >
     </div>
+    <script>
+      // Sözlük: product.html sayfasına özel ID'leri buraya ekledik
+      const translations = {
+        en: {
+          "back-to-portfolio": "← PORTFOLIO",
+          "prod-page-title": "PRODUCT",
+          "next-cat-label": "NEXT CATEGORY",
+          "next-cat-nature": "NATURE →",
+        },
+        tr: {
+          "back-to-portfolio": "← PORTFOLYO",
+          "prod-page-title": "ÜRÜN",
+          "next-cat-label": "SIRADAKİ KATEGORİ",
+          "next-cat-nature": "DOĞA →",
+        },
+      };
+
+      function setLanguage(lang) {
+        // 1. Tüm çevrilecek öğeleri bul
+        const elements = document.querySelectorAll(".lang-key");
+
+        elements.forEach((el) => {
+          const id = el.getAttribute("id");
+          // Eğer sözlükte bu ID varsa metni değiştir
+          if (translations[lang] && translations[lang][id]) {
+            el.textContent = translations[lang][id];
+          }
+        });
+
+        // 2. Dil butonlarının (TR | EN) görünümünü güncelle
+        const btnTr = document.getElementById("lang-tr");
+        const btnEn = document.getElementById("lang-en");
+
+        if (btnTr && btnEn) {
+          btnTr.classList.remove("active");
+          btnEn.classList.remove("active");
+          const activeBtn = document.getElementById("lang-" + lang);
+          if (activeBtn) activeBtn.classList.add("active");
+        }
+
+        // 3. Seçimi hafızaya kaydet
+        localStorage.setItem("selectedLang", lang);
+      }
+
+      // Sayfa açıldığında hafızadaki dili yükle
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("selectedLang") || "en";
+        setLanguage(savedLang);
+      });
+    </script>
   </body>
 </html>

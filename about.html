@@ -164,6 +164,29 @@
         cursor: default;
         color: #fff;
       }
+      @media (max-width: 768px) {
+        .about-container {
+          flex-direction: column;
+          text-align: center;
+        }
+        .about-photo {
+          width: 100%; /* Fotoğrafı ekran genişliğine yay */
+          margin-bottom: 20px;
+        }
+      }
+      @media (max-width: 768px) {
+        .back-nav,
+        .lang-switcher {
+          top: 20px;
+          font-size: 10px;
+        }
+        .back-nav {
+          left: 20px;
+        }
+        .lang-switcher {
+          right: 20px;
+        }
+      }
     </style>
   </head>
   <body>

@@ -33,6 +33,10 @@
         padding: 30px 50px;
         box-sizing: border-box;
         z-index: 100;
+        transition:
+          transform 0.4s ease,
+          opacity 0.4s ease;
+        z-index: 1000;
       }
 
       .nav-logo {
@@ -46,7 +50,7 @@
         display: flex;
         gap: 30px;
         margin-left: auto; /* Linkleri sağa doğru iter */
-        margin-right: 100px; /* IG ikonuyla arasına boşluk koyar */
+        margin-right: 70px; /* IG ikonuyla arasına boşluk koyar */
       }
 
       .nav-links a {
@@ -61,6 +65,10 @@
 
       .nav-links a:hover {
         opacity: 1; /* Üzerine gelince parlar */
+      }
+      .navbar.hidden {
+        transform: translateY(-100%);
+        opacity: 0;
       }
 
       /* 3. GİRİŞ BÖLÜMÜ (HERO) */
@@ -102,7 +110,7 @@
         z-index: 2;
         text-align: right; /* Yazıları kendi içinde sağa hizalar */
         position: relative;
-        left: 50px; /* Sadece yazıları bağımsız olarak sağa iter */
+        left: 0; /* Sadece yazıları bağımsız olarak sağa iter */
       }
 
       h1 {
@@ -319,6 +327,66 @@
         cursor: default;
         opacity: 0.3;
       }
+      #nav-contact {
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+      }
+
+      #nav-contact:hover {
+        opacity: 0.6; /* Üzerine gelince hafifçe sönerek tepki verir */
+      }
+      @media (max-width: 768px) {
+        /* 1. Navbar'ı tekrar tek satır ve zarif yapıyoruz */
+        .navbar {
+          flex-direction: row !important; /* Yan yana dizilimi geri getirdik */
+          justify-content: space-between !important;
+          padding: 20px 15px !important;
+          background: transparent !important; /* O siyah gölgeyi kaldırdık */
+        }
+
+        /* 2. Logoyu küçültüyoruz */
+        .nav-logo {
+          font-size: 0.9rem !important;
+        }
+
+        /* 3. Menü linklerini tek bir satıra sığdırıyoruz */
+        .nav-links {
+          display: flex !important;
+          flex-direction: row !important;
+          gap: 10px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+
+        .nav-links a {
+          font-size: 8px !important; /* Çok küçük ama sığması için kritik */
+          letter-spacing: 1px !important;
+        }
+
+        /* 4. Sosyal medya ve Dil seçeneklerini gizle ya da küçült */
+        /* Tasarımı ferahlatmak için mobilde bunları navbar dışına alabiliriz */
+        .nav-social,
+        .lang-switcher {
+          display: none !important; /* Menüyü çok kalabalık yapıyorsa mobilde gizleyebiliriz */
+        }
+
+        /* 5. İsmini ve başlığı tam merkeze alıyoruz */
+        .hero {
+          justify-content: center !important;
+          padding-right: 0 !important;
+        }
+
+        .hero-text {
+          left: 0 !important;
+          text-align: center !important;
+          width: 100%;
+        }
+
+        h1 {
+          font-size: 1.8rem !important;
+          letter-spacing: 6px !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -334,7 +402,13 @@
           >
         </li>
         <li>
-          <a href="#contact" class="lang-key" id="nav-contact">Contact</a>
+          <a
+            href="contact.html"
+            class="lang-key"
+            id="nav-contact"
+            style="text-decoration: none; color: inherit"
+            >CONTACT</a
+          >
         </li>
       </ul>
       <div class="nav-social">
@@ -448,6 +522,19 @@
       document.addEventListener("DOMContentLoaded", () => {
         const savedLang = localStorage.getItem("selectedLang") || "en";
         setLanguage(savedLang);
+      });
+      let lastScrollTop = 0;
+      const navbar = document.querySelector(".navbar");
+
+      window.addEventListener("scroll", function () {
+        let scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop && scrollTop > 50) {
+          navbar.classList.add("hidden"); // Aşağı kaydırınca gizle
+        } else {
+          navbar.classList.remove("hidden"); // Yukarı kaydırınca göster
+        }
+        lastScrollTop = scrollTop;
       });
     </script>
   </body>

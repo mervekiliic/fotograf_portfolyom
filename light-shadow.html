@@ -122,19 +122,88 @@
           column-count: 1;
         }
       }
+      /* Dil Butonları Sabitleme */
+      .lang-switcher {
+        position: fixed;
+        right: 40px;
+        top: 35px;
+        display: flex;
+        gap: 12px;
+        font-size: 11px;
+        letter-spacing: 2px;
+        z-index: 9999;
+      }
+
+      .lang-switcher span {
+        cursor: pointer;
+        opacity: 0.4;
+        color: white;
+        transition: all 0.3s ease;
+      }
+
+      .lang-switcher span.active,
+      .lang-switcher span:hover {
+        opacity: 1;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      }
+
+      .lang-switcher span.active {
+        border-bottom: 1px solid white;
+      }
+
+      /* Geri Butonu ve Morluk Engelleme */
+      #back-to-portfolio,
+      .back-button,
+      .back-button:visited {
+        color: rgba(255, 255, 255, 0.6) !important;
+        text-decoration: none;
+        transition: all 0.4s ease;
+        display: inline-block;
+      }
+
+      #back-to-portfolio:hover {
+        color: #fff !important;
+        padding-left: 10px;
+      }
+      @media (max-width: 768px) {
+        .back-nav,
+        .lang-switcher {
+          top: 20px;
+          font-size: 10px;
+        }
+        .back-nav {
+          left: 20px;
+        }
+        .lang-switcher {
+          right: 20px;
+        }
+      }
     </style>
   </head>
   <body>
-    <a href="index.html" class="back-button">← PORTFOLIO</a>
+    <div class="lang-switcher">
+      <span onclick="setLanguage('tr')" id="lang-tr">TR</span>
+      <span class="separator">|</span>
+      <span onclick="setLanguage('en')" id="lang-en">EN</span>
+    </div>
 
-    <h1 style="letter-spacing: 10px; font-weight: 300; margin-bottom: 50px">
+    <a href="index.html" class="lang-key back-button" id="back-to-portfolio"
+      >← PORTFOLIO</a
+    >
+
+    <h1
+      class="lang-key"
+      id="light-page-title"
+      style="letter-spacing: 10px; font-weight: 300; margin-bottom: 50px"
+    >
       LIGHT&SHADOW
     </h1>
 
     <div class="gallery">
-      <div class="gallery-item"><img src="photoışık1.webp" alt="1" /></div>
-      <div class="gallery-item"><img src="photoışık2.webp" alt="2" /></div>
+      <div class="gallery-item"><img src="photoışık1.webp" alt="1" /></div>
+      <div class="gallery-item"><img src="photoışık2.webp" alt="2" /></div>
     </div>
+
     <div
       style="
         margin-top: 100px;
@@ -143,11 +212,17 @@
         padding-top: 50px;
       "
     >
-      <p style="font-size: 20px; letter-spacing: 2px; color: #555">
+      <p
+        class="lang-key"
+        id="next-cat-label"
+        style="font-size: 20px; letter-spacing: 2px; color: #555"
+      >
         NEXT CATEGORY
       </p>
       <a
         href="architectural.html"
+        class="lang-key"
+        id="next-cat-arch-link"
         style="
           color: #fff;
           text-decoration: none;
@@ -155,8 +230,50 @@
           letter-spacing: 5px;
           text-transform: uppercase;
         "
-        >ARCHITECTURAL →</a
       >
+        ARCHITECTURAL →
+      </a>
     </div>
+    <script>
+      const translations = {
+        en: {
+          "back-to-portfolio": "← PORTFOLIO",
+          "light-page-title": "LIGHT&SHADOW",
+          "next-cat-label": "NEXT CATEGORY",
+          "next-cat-arch-link": "ARCHITECTURAL →",
+        },
+        tr: {
+          "back-to-portfolio": "← PORTFOLYO",
+          "light-page-title": "IŞIK&GÖLGE",
+          "next-cat-label": "SIRADAKİ KATEGORİ",
+          "next-cat-arch-link": "MİMARİ →",
+        },
+      };
+
+      function setLanguage(lang) {
+        const elements = document.querySelectorAll(".lang-key");
+        elements.forEach((el) => {
+          const id = el.getAttribute("id");
+          if (translations[lang] && translations[lang][id]) {
+            el.textContent = translations[lang][id];
+          }
+        });
+
+        const btnTr = document.getElementById("lang-tr");
+        const btnEn = document.getElementById("lang-en");
+        if (btnTr && btnEn) {
+          btnTr.classList.remove("active");
+          btnEn.classList.remove("active");
+          const activeBtn = document.getElementById("lang-" + lang);
+          if (activeBtn) activeBtn.classList.add("active");
+        }
+        localStorage.setItem("selectedLang", lang);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("selectedLang") || "en";
+        setLanguage(savedLang);
+      });
+    </script>
   </body>
 </html>

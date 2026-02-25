@@ -15,10 +15,14 @@
       }
 
       /* 2. GERİ DÖN BUTONU */
-      .back-button {
+      .back-button,
+      .back-button:link,
+      .back-button:visited,
+      .back-button:active {
         display: inline-block;
         text-decoration: none;
-        color: rgba(255, 255, 255, 0.6);
+        /* Rengi beyaza sabitliyoruz, morluğu engelliyoruz */
+        color: rgba(255, 255, 255, 0.6) !important;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         padding: 5px 0;
         font-size: 20px;
@@ -29,9 +33,10 @@
       }
 
       .back-button:hover {
-        color: #fff;
+        color: #fff !important;
         border-bottom: 1px solid #fff;
         padding-left: 10px; /* Fareyle üzerine gelince sağa kayma efekti */
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* index.html'deki o şık parlama */
       }
 
       /* 1. Kapsayıcıdaki taşmaları engelle */
@@ -122,12 +127,73 @@
           column-count: 1;
         }
       }
+
+      /* Dil Butonları Sağ Üst Sabit Konum */
+      .lang-switcher {
+        position: fixed; /* Sayfa kaysa da sağ üstte çakılı kalır */
+        right: 40px; /* Sağdan boşluk */
+        top: 35px; /* Üstten boşluk */
+        display: flex;
+        gap: 12px;
+        font-size: 11px;
+        letter-spacing: 2px;
+        z-index: 9999; /* Her şeyin en üstünde durur */
+      }
+
+      .lang-switcher span {
+        cursor: pointer;
+        opacity: 0.4;
+        color: white;
+        transition: all 0.3s ease;
+        padding-bottom: 2px;
+      }
+
+      /* Aktif veya üzerine gelinen dilin parlaması */
+      .lang-switcher span:hover,
+      .lang-switcher span.active {
+        opacity: 1;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      }
+
+      /* Seçili dilin altına ince çizgi */
+      .lang-switcher span.active {
+        border-bottom: 1px solid white;
+      }
+
+      .lang-switcher .separator {
+        opacity: 0.2;
+        cursor: default;
+        color: white;
+      }
+      @media (max-width: 768px) {
+        .back-nav,
+        .lang-switcher {
+          top: 20px;
+          font-size: 10px;
+        }
+        .back-nav {
+          left: 20px;
+        }
+        .lang-switcher {
+          right: 20px;
+        }
+      }
     </style>
   </head>
   <body>
-    <a href="index.html" class="back-button">← PORTFOLIO</a>
-
-    <h1 style="letter-spacing: 10px; font-weight: 300; margin-bottom: 50px">
+    <div class="lang-switcher">
+      <span onclick="setLanguage('tr')" id="lang-tr">TR</span>
+      <span class="separator">|</span>
+      <span onclick="setLanguage('en')" id="lang-en">EN</span>
+    </div>
+    <a href="index.html" class="lang-key back-button" id="back-to-portfolio"
+      >← PORTFOLIO</a
+    >
+    <h1
+      class="lang-key"
+      id="arch-page-title"
+      style="letter-spacing: 10px; font-weight: 300; margin-bottom: 50px"
+    >
       ARCHITECTURAL
     </h1>
 
@@ -145,11 +211,17 @@
         padding-top: 50px;
       "
     >
-      <p style="font-size: 20px; letter-spacing: 2px; color: #555">
+      <p
+        class="lang-key"
+        id="next-cat-label"
+        style="font-size: 20px; letter-spacing: 2px; color: #555"
+      >
         NEXT CATEGORY
       </p>
       <a
         href="product.html"
+        class="lang-key"
+        id="next-cat-product"
         style="
           color: #fff;
           text-decoration: none;
@@ -157,8 +229,54 @@
           letter-spacing: 5px;
           text-transform: uppercase;
         "
-        >PRODUCT →</a
       >
+        PRODUCT →
+      </a>
     </div>
+    <script>
+      const translations = {
+        en: {
+          "back-to-portfolio": "← PORTFOLIO",
+          "arch-page-title": "ARCHITECTURAL",
+          "next-cat-label": "NEXT CATEGORY",
+          "next-cat-product": "PRODUCT →",
+        },
+        tr: {
+          "back-to-portfolio": "← PORTFOLYO",
+          "arch-page-title": "MİMARİ",
+          "next-cat-label": "SIRADAKİ KATEGORİ",
+          "next-cat-product": "ÜRÜN →",
+        },
+      };
+
+      function setLanguage(lang) {
+        const elements = document.querySelectorAll(".lang-key");
+
+        elements.forEach((el) => {
+          const id = el.getAttribute("id");
+          if (translations[lang] && translations[lang][id]) {
+            el.textContent = translations[lang][id];
+          }
+        });
+
+        // Sağ üstteki TR | EN butonlarının aktiflik stilini güncelle
+        const btnTr = document.getElementById("lang-tr");
+        const btnEn = document.getElementById("lang-en");
+
+        if (btnTr && btnEn) {
+          btnTr.classList.remove("active");
+          btnEn.classList.remove("active");
+          const activeBtn = document.getElementById("lang-" + lang);
+          if (activeBtn) activeBtn.classList.add("active");
+        }
+
+        localStorage.setItem("selectedLang", lang);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("selectedLang") || "en";
+        setLanguage(savedLang);
+      });
+    </script>
   </body>
 </html>

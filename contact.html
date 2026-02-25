@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Merve Kılıç</title>
+    <style>
+      /* 1. TEMEL YAPI VE ARKA PLAN */
+      body {
+        /* Fotoğraf üzerine hem karartma hem vinyet (kenar karartma) ekledik */
+        background:
+          radial-gradient(
+            circle,
+            rgba(0, 0, 0, 0.5) 0%,
+            rgba(0, 0, 0, 0.9) 100%
+          ),
+          url("arkaplan.webp") no-repeat center center fixed;
+        background-size: cover;
+        color: #fff;
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        overflow: hidden; /* Gereksiz kaydırmayı önler */
+      }
+
+      /* 2. DİL BUTONLARI (Sağ Üst Sabit) */
+      .lang-switcher {
+        position: fixed;
+        right: 40px;
+        top: 35px;
+        display: flex;
+        gap: 12px;
+        font-size: 11px;
+        letter-spacing: 2px;
+        z-index: 9999;
+      }
+      .lang-switcher span {
+        cursor: pointer;
+        opacity: 0.3;
+        transition: 0.3s;
+      }
+      .lang-switcher span.active {
+        opacity: 1;
+        border-bottom: 1px solid white;
+      }
+
+      /* 3. GERİ DÖNÜŞ (Sol Üst Sabit) */
+      .back-nav {
+        position: fixed;
+        left: 40px;
+        top: 35px;
+      }
+      #back-to-portfolio {
+        color: rgba(255, 255, 255, 0.5) !important; /* Morluk engelleyici */
+        text-decoration: none;
+        font-size: 16px;
+        letter-spacing: 3px;
+        transition: 0.4s;
+      }
+      #back-to-portfolio:hover {
+        color: #fff !important;
+        padding-left: 10px;
+      }
+
+      /* 4. ANA İÇERİK BLOĞU */
+      .contact-container {
+        text-align: center;
+        max-width: 800px;
+        animation: fadeIn 2s ease;
+      }
+
+      h1 {
+        font-weight: 100;
+        letter-spacing: 20px;
+        margin-bottom: 15px;
+        font-size: 3rem;
+        text-transform: uppercase;
+      }
+
+      .sub-label {
+        font-size: 12px;
+        letter-spacing: 4px;
+        color: rgba(255, 255, 255, 0.4);
+        text-transform: uppercase;
+        margin-bottom: 60px;
+      }
+
+      /* LİNKLER: SEND AN EMAIL / INSTAGRAM */
+      .action-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 25px;
+      }
+
+      .main-link {
+        color: #fff;
+        text-decoration: none;
+        font-size: 13px;
+        letter-spacing: 5px;
+        padding: 5px 0;
+        border-bottom: 1px solid transparent;
+        transition: all 0.6s ease;
+      }
+
+      .main-link:hover {
+        border-bottom: 1px solid #fff;
+        letter-spacing: 8px;
+      }
+
+      .divider {
+        color: rgba(255, 255, 255, 0.15);
+        font-weight: 100;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (max-width: 768px) {
+        .action-links {
+          flex-direction: column;
+          gap: 20px;
+        } /* Linkleri alt alta diz */
+        .divider {
+          display: none;
+        } /* Aradaki çizgiyi kaldır */
+        h1 {
+          font-size: 2rem;
+          letter-spacing: 10px;
+        } /* Başlığı küçült */
+        body {
+          padding: 20px;
+          text-align: center;
+        } /* Kenar boşluğu ekle */
+      }
+      @media (max-width: 768px) {
+        .back-nav,
+        .lang-switcher {
+          top: 20px;
+          font-size: 10px;
+        }
+        .back-nav {
+          left: 20px;
+        }
+        .lang-switcher {
+          right: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="lang-switcher">
+      <span onclick="setLanguage('tr')" id="lang-tr">TR</span>
+      <span style="opacity: 0.2">|</span>
+      <span onclick="setLanguage('en')" id="lang-en">EN</span>
+    </div>
+
+    <div class="back-nav">
+      <a href="index.html" class="lang-key" id="back-to-portfolio"
+        >← PORTFOLIO</a
+      >
+    </div>
+
+    <div class="contact-container">
+      <h1 class="lang-key" id="contact-title">CONTACT</h1>
+      <p class="lang-key sub-label" id="contact-subtext">
+        Let's create something beautiful together.
+      </p>
+
+      <div class="action-links">
+        <a
+          href="mailto:business.mervekilic@gmail.com"
+          class="main-link lang-key"
+          id="send-email-btn"
+          >SEND AN EMAIL</a
+        >
+        <span class="divider">/</span>
+        <a
+          href="https://instagram.com/mervisualss"
+          target="_blank"
+          class="main-link"
+          >INSTAGRAM</a
+        >
+      </div>
+    </div>
+
+    <script>
+      const translations = {
+        en: {
+          "back-to-portfolio": "← PORTFOLIO",
+          "contact-title": "CONTACT",
+          "contact-subtext": "Let's create something beautiful together.",
+          "send-email-btn": "SEND AN EMAIL",
+        },
+        tr: {
+          "back-to-portfolio": "← PORTFOLYO",
+          "contact-title": "İLETİŞİM",
+          "contact-subtext": "Birlikte harika şeyler yaratalım.",
+          "send-email-btn": "E-POSTA GÖNDER",
+        },
+      };
+
+      function setLanguage(lang) {
+        const elements = document.querySelectorAll(".lang-key");
+        elements.forEach((el) => {
+          const id = el.getAttribute("id");
+          if (translations[lang] && translations[lang][id]) {
+            el.textContent = translations[lang][id];
+          }
+        });
+
+        document
+          .getElementById("lang-tr")
+          .classList.toggle("active", lang === "tr");
+        document
+          .getElementById("lang-en")
+          .classList.toggle("active", lang === "en");
+        localStorage.setItem("selectedLang", lang);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("selectedLang") || "en";
+        setLanguage(savedLang);
+      });
+    </script>
+  </body>
+</html>
