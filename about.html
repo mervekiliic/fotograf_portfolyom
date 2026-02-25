@@ -23,6 +23,7 @@
         position: absolute;
         top: 40px;
         left: 50px;
+        z-index: 100;
       }
 
       .back-nav a {
@@ -194,14 +195,12 @@
       <a href="index.html" class="lang-key" id="back-to-portfolio"
         >← PORTFOLIO</a
       >
+    </div>
 
-      <div
-        class="lang-switcher"
-        style="display: inline-block; margin-left: 20px"
-      >
-        <span onclick="setLanguage('tr')" id="lang-tr">TR</span> |
-        <span onclick="setLanguage('en')" id="lang-en">EN</span>
-      </div>
+    <div class="lang-switcher">
+      <span onclick="setLanguage('tr')" id="lang-tr">TR</span>
+      <span class="separator">|</span>
+      <span onclick="setLanguage('en')" id="lang-en">EN</span>
     </div>
 
     <div class="about-container">
