@@ -71,6 +71,105 @@
         opacity: 0;
       }
 
+      /* Hamburger menü butonu */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 1.5rem;
+        z-index: 1001;
+      }
+
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 5px 0;
+        transition: 0.3s;
+        display: block;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(10px, 10px);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+      }
+
+      /* Mobil menü konteyner */
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 999;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+      }
+
+      .mobile-menu.active {
+        display: flex;
+      }
+
+      .mobile-menu a,
+      .mobile-menu span {
+        color: white;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+        transition: 0.3s;
+        cursor: pointer;
+      }
+
+      .mobile-menu a:hover,
+      .mobile-menu span:hover {
+        opacity: 0.6;
+      }
+
+      .mobile-menu-divider {
+        width: 50px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.3);
+        margin: 10px 0;
+      }
+
+      .mobile-lang-switcher {
+        display: flex;
+        gap: 15px;
+        font-size: 1.2rem;
+        margin-top: 20px;
+      }
+
+      .mobile-lang-switcher span {
+        opacity: 0.5;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .mobile-lang-switcher span:hover {
+        opacity: 1;
+      }
+
+      .mobile-lang-switcher span.active {
+        opacity: 1;
+        border-bottom: 2px solid white;
+        padding-bottom: 5px;
+      }
+
       /* 3. GİRİŞ BÖLÜMÜ (HERO) */
       .hero {
         position: relative;
@@ -336,55 +435,128 @@
         opacity: 0.6; /* Üzerine gelince hafifçe sönerek tepki verir */
       }
       @media (max-width: 768px) {
-        /* 1. Navbar'ı tekrar tek satır ve zarif yapıyoruz */
+        /* 1. Navbar düzenlemesi */
         .navbar {
-          flex-direction: row !important; /* Yan yana dizilimi geri getirdik */
-          justify-content: space-between !important;
-          padding: 20px 15px !important;
-          background: transparent !important; /* O siyah gölgeyi kaldırdık */
+          padding: 15px 20px !important;
+          background: transparent !important;
+          position: relative !important;
         }
 
         /* 2. Logoyu küçültüyoruz */
         .nav-logo {
-          font-size: 0.9rem !important;
-        }
-
-        /* 3. Menü linklerini tek bir satıra sığdırıyoruz */
-        .nav-links {
-          display: flex !important;
-          flex-direction: row !important;
-          gap: 10px !important;
-          margin: 0 !important;
-          padding: 0 !important;
-        }
-
-        .nav-links a {
-          font-size: 8px !important; /* Çok küçük ama sığması için kritik */
+          font-size: 0.85rem !important;
           letter-spacing: 1px !important;
         }
 
-        /* 4. Sosyal medya ve Dil seçeneklerini gizle ya da küçült */
-        /* Tasarımı ferahlatmak için mobilde bunları navbar dışına alabiliriz */
-        .nav-social,
-        .lang-switcher {
-          display: none !important; /* Menüyü çok kalabalık yapıyorsa mobilde gizleyebiliriz */
+        /* 3. Menü linklerini gizlyoruz */
+        .nav-links {
+          display: none !important;
         }
 
-        /* 5. İsmini ve başlığı tam merkeze alıyoruz */
+        /* 4. Sosyal medya ve Dil seçeneklerini gizle */
+        .nav-social,
+        .lang-switcher {
+          display: none !important;
+        }
+
+        /* 5. Hamburger menüyü göster */
+        .hamburger {
+          display: flex !important;
+        }
+
+        /* 6. Ana sayfa yazısını ortala */
         .hero {
           justify-content: center !important;
+          align-items: center !important;
           padding-right: 0 !important;
+          height: 70vh !important;
         }
 
         .hero-text {
-          left: 0 !important;
           text-align: center !important;
-          width: 100%;
+          width: 100% !important;
+          padding: 0 20px !important;
+          left: 0 !important;
+          z-index: 5 !important;
         }
 
         h1 {
+          font-size: 1.5rem !important;
+          letter-spacing: 3px !important;
+          margin-bottom: 10px !important;
+        }
+
+        p {
+          font-size: 0.9rem !important;
+          letter-spacing: 3px !important;
+        }
+
+        /* 7. Arka plan fotoğrafı mobilde ortala */
+        .hero-bg {
+          object-position: center !important;
+        }
+
+        /* 8. Galerisi mobilde 2 sütunlu olsun */
+        .works-grid {
+          grid-template-columns: repeat(2, 1fr) !important;
+          padding: 20px !important;
+          gap: 15px !important;
+        }
+
+        .work-item {
+          height: 250px !important;
+        }
+
+        .work-overlay span {
+          font-size: 0.9rem !important;
+          letter-spacing: 2px !important;
+        }
+
+        .recent-works {
+          padding: 40px 20px !important;
+        }
+
+        .section-title {
           font-size: 1.8rem !important;
-          letter-spacing: 6px !important;
+          margin-bottom: 30px !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        /* Çok küçük ekranlar için */
+        .navbar {
+          padding: 12px 15px !important;
+        }
+
+        .nav-logo {
+          font-size: 0.75rem !important;
+        }
+
+        .hero {
+          height: 50vh !important;
+        }
+
+        h1 {
+          font-size: 1.2rem !important;
+          letter-spacing: 2px !important;
+        }
+
+        p {
+          font-size: 0.8rem !important;
+          letter-spacing: 2px !important;
+        }
+
+        /* Galerisi tek sütunlu olsun */
+        .works-grid {
+          grid-template-columns: 1fr !important;
+        }
+
+        .work-item {
+          height: 300px !important;
+        }
+
+        .section-title {
+          font-size: 1.5rem !important;
         }
       }
     </style>
@@ -425,7 +597,37 @@
         <span class="separator">|</span>
         <span onclick="setLanguage('en')" id="lang-en">EN</span>
       </div>
+      <button class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </nav>
+
+    <!-- Mobil Menü -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#portfolio" class="lang-key" id="mobile-portfolio">Portfolio</a>
+      <a href="about.html" class="lang-key" id="mobile-about">ABOUT</a>
+      <a href="contact.html" class="lang-key" id="mobile-contact">CONTACT</a>
+      <div class="mobile-menu-divider"></div>
+      <a
+        href="https://www.instagram.com/mervisualss/"
+        target="_blank"
+        style="font-size: 1.2rem"
+      >
+        <i class="fa-brands fa-instagram"></i> Instagram
+      </a>
+      <div class="mobile-menu-divider"></div>
+      <div class="mobile-lang-switcher">
+        <span onclick="setLanguage('tr')" id="mobile-lang-tr" class="lang-key"
+          >TR</span
+        >
+        <span class="separator">|</span>
+        <span onclick="setLanguage('en')" id="mobile-lang-en" class="lang-key"
+          >EN</span
+        >
+      </div>
+    </div>
 
     <section class="hero">
       <img src="back.webp" class="hero-bg" alt="Kapak Fotoğrafı" />
@@ -474,6 +676,11 @@
           "nav-portfolio": "Portfolio",
           "nav-about": "ABOUT",
           "nav-contact": "Contact",
+          "mobile-portfolio": "Portfolio",
+          "mobile-about": "ABOUT",
+          "mobile-contact": "Contact",
+          "mobile-lang-tr": "TR",
+          "mobile-lang-en": "EN",
           "hero-sub": "PHOTOGRAPHY",
           "section-works": "Recent Works",
           "work-arch": "architectural",
@@ -485,6 +692,11 @@
           "nav-portfolio": "Portfolyo",
           "nav-about": "HAKKIMDA",
           "nav-contact": "İletişim",
+          "mobile-portfolio": "Portfolyo",
+          "mobile-about": "HAKKIMDA",
+          "mobile-contact": "İletişim",
+          "mobile-lang-tr": "TR",
+          "mobile-lang-en": "EN",
           "hero-sub": "FOTOĞRAFÇILIK",
           "section-works": "Son Çalışmalar",
           "work-arch": "mimari",
@@ -509,13 +721,22 @@
         // Önce her iki butondan da 'active' sınıfını çıkarıyoruz
         document.getElementById("lang-tr").classList.remove("active");
         document.getElementById("lang-en").classList.remove("active");
+        document.getElementById("mobile-lang-tr").classList.remove("active");
+        document.getElementById("mobile-lang-en").classList.remove("active");
 
         // Sonra seçilen dile (lang) 'active' sınıfını ekliyoruz
         document.getElementById("lang-" + lang).classList.add("active");
+        document.getElementById("mobile-lang-" + lang).classList.add("active");
         // --------------------------------
 
         // Seçimi hafızaya kaydet
         localStorage.setItem("selectedLang", lang);
+
+        // Mobil menüyü kapat
+        const mobileMenu = document.getElementById("mobileMenu");
+        const hamburger = document.getElementById("hamburger");
+        mobileMenu.classList.remove("active");
+        hamburger.classList.remove("active");
       }
 
       // 3. Sayfa açıldığında son seçilen dili kontrol et
@@ -535,6 +756,24 @@
           navbar.classList.remove("hidden"); // Yukarı kaydırınca göster
         }
         lastScrollTop = scrollTop;
+      });
+
+      // Hamburger Menü Toggle
+      const hamburger = document.getElementById("hamburger");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        mobileMenu.classList.toggle("active");
+      });
+
+      // Mobil menü linklerine tıklandığında menüyü kapat
+      const mobileMenuLinks = document.querySelectorAll(".mobile-menu a");
+      mobileMenuLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          hamburger.classList.remove("active");
+          mobileMenu.classList.remove("active");
+        });
       });
     </script>
   </body>
