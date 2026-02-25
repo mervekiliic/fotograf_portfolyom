@@ -260,13 +260,13 @@
         display: flex; /* İçeriği yönetmek için */
         align-items: center; /* Dikeyde tam ortalar 🎯 */
         justify-content: center; /* Yatayda tam ortalar */
-        background-color: #0a0a0a; /* Boşlu
-            }
+        background-color: #0a0a0a;
+      }
 
-            .work-item img {
-              width: 70%;
-              height: 70%;
-              object-fit: cover; /* Fotoğrafı kareye sığdırır */
+      .work-item img {
+        width: 90%;
+        height: 90%;
+        object-fit: cover;
         transition: transform 0.5s ease;
       }
 
@@ -549,10 +549,11 @@
         /* Galerisi tek sütunlu olsun */
         .works-grid {
           grid-template-columns: 1fr !important;
+          justify-items: center !important;
         }
 
         .work-item {
-          height: 300px !important;
+          height: 350px !important;
         }
 
         .section-title {
