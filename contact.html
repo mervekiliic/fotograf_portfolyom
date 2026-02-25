@@ -48,22 +48,30 @@
         border-bottom: 1px solid white;
       }
 
-      /* 3. GERİ DÖNÜŞ (Sol Üst Sabit) */
+      /* 3. GERİ DÖNÜŞ BUTONU (About Sayfası Ayarlarıyla Eşitlendi) */
       .back-nav {
-        position: fixed;
-        left: 40px;
-        top: 35px;
+        position: fixed; /* Sayfa kaydığında yerinde kalması için */
+        top: 40px;
+        left: 50px;
+        z-index: 100;
       }
-      #back-to-portfolio {
-        color: rgba(255, 255, 255, 0.5) !important; /* Morluk engelleyici */
+
+      .back-nav a {
+        display: inline-block;
         text-decoration: none;
-        font-size: 16px;
+        color: rgba(255, 255, 255, 0.6);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 5px 0;
+        font-size: 20px; /* Boyutu About sayfası gibi 20px yaptık */
         letter-spacing: 3px;
-        transition: 0.4s;
+        text-transform: uppercase;
+        transition: all 0.4s ease;
       }
-      #back-to-portfolio:hover {
-        color: #fff !important;
-        padding-left: 10px;
+
+      .back-nav a:hover {
+        color: #fff;
+        border-bottom: 1px solid #fff;
+        padding-left: 10px; /* O meşhur sağa kayma efekti */
       }
 
       /* 4. ANA İÇERİK BLOĞU */
