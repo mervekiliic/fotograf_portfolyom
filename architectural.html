@@ -6,12 +6,21 @@
     <title>Architectural | Merve Kılıç</title>
     <style>
       /* 1. SAYFA GENELİ */
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        overflow-x: hidden;
+      }
+
       body {
         background-color: #000;
         color: #fff;
         font-family: "Arial", sans-serif;
         margin: 0;
         padding: 40px;
+        overflow-x: hidden;
       }
 
       /* 2. GERİ DÖN BUTONU */
@@ -39,13 +48,10 @@
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* index.html'deki o şık parlama */
       }
 
-      /* 1. Kapsayıcıdaki taşmaları engelle */
       .gallery {
         column-count: 3;
         column-gap: 20px;
         padding-bottom: 50px;
-        /* Ekstra güvenlik satırı: */
-        perspective: 1000px;
       }
 
       /* 2. Resimlerin kutusunu sabitle */
@@ -56,10 +62,8 @@
         opacity: 0;
         transform: translateY(30px);
         animation: slideUp 0.8s ease-out forwards;
-
-        /* ÇÖZÜM BURADA: Tarayıcıya bu elementin bir katman olduğunu bildir */
         backface-visibility: hidden;
-        -webkit-column-break-inside: avoid; /* Resmin sütun arasında bölünmesini engeller */
+        -webkit-column-break-inside: avoid;
         break-inside: avoid;
       }
 
@@ -81,15 +85,11 @@
         opacity: 1 !important;
       }
 
-      /* Animasyon bittikten sonra görünür kalmasını sağlayan komut */
-      .gallery-item {
-        display: inline-block;
-        width: 100%;
-        margin-bottom: 20px;
-        opacity: 0;
-        transform: translateY(30px);
-        /* forwards komutu animasyon bittiğinde son halini (opacity:1) korur */
-        animation: slideUp 0.8s ease-out forwards;
+      @keyframes slideUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       /* 4. SIRALI GİRİŞ ANİMASYONU (Delay) */
@@ -123,8 +123,12 @@
         }
       }
       @media (max-width: 600px) {
+        body {
+          padding: 20px;
+        }
         .gallery {
           column-count: 1;
+          column-gap: 0;
         }
       }
 
