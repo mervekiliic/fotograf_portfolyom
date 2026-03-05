@@ -19,18 +19,19 @@
         color: #fff;
         font-family: "Arial", sans-serif;
         margin: 0;
-        padding: 40px;
+        padding: clamp(15px, 5vw, 40px);
         overflow-x: hidden;
       }
 
       /* 1.5 BAŞLIK RESPONSİF STİL */
       h1 {
-        font-size: 3.5rem;
-        letter-spacing: 10px;
-        margin: 0 0 50px 0;
+        font-size: clamp(1.5rem, 8vw, 3.5rem);
+        letter-spacing: clamp(2px, 2vw, 10px);
+        margin: 0 0 clamp(20px, 5vw, 50px) 0;
         word-wrap: break-word;
         overflow-wrap: break-word;
         hyphens: auto;
+        font-weight: 300;
       }
 
       /* 2. GERİ DÖN BUTONU */
@@ -40,14 +41,13 @@
       .back-button:active {
         display: inline-block;
         text-decoration: none;
-        /* Rengi beyaza sabitliyoruz, morluğu engelliyoruz */
         color: rgba(255, 255, 255, 0.6) !important;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         padding: 5px 0;
-        font-size: 20px;
-        letter-spacing: 3px;
+        font-size: clamp(14px, 3vw, 20px);
+        letter-spacing: clamp(1px, 1.5vw, 3px);
         text-transform: uppercase;
-        margin-bottom: 60px;
+        margin-bottom: clamp(30px, 8vw, 60px);
         transition: all 0.4s ease;
       }
 
@@ -60,15 +60,15 @@
 
       .gallery {
         column-count: 3;
-        column-gap: 20px;
-        padding-bottom: 50px;
+        column-gap: clamp(10px, 3vw, 20px);
+        padding-bottom: clamp(30px, 5vw, 50px);
       }
 
       /* 2. Resimlerin kutusunu sabitle */
       .gallery-item {
         display: inline-block;
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: clamp(15px, 3vw, 20px);
         opacity: 0;
         transform: translateY(30px);
         animation: slideUp 0.8s ease-out forwards;
@@ -102,65 +102,46 @@
         }
       }
 
-      /* 4. SIRALI GİRİŞ ANİMASYONU (Delay) */
-      .gallery-item:nth-child(1) {
-        animation-delay: 0.1s;
-      }
-      .gallery-item:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-      .gallery-item:nth-child(3) {
-        animation-delay: 0.3s;
-      }
-      .gallery-item:nth-child(4) {
-        animation-delay: 0.4s;
-      }
-      .gallery-item:nth-child(5) {
-        animation-delay: 0.5s;
-      }
-
-      @keyframes slideUp {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* 5. MOBİL UYUMLULUK */
-      @media (max-width: 900px) {
+      /* RESPONSIVE BREAKPOINT'LER */
+      /* Tablet & Desktop Orta (900px+) */
+      @media (max-width: 1024px) {
         .gallery {
           column-count: 2;
         }
-        h1 {
-          font-size: 2.5rem;
-          letter-spacing: 6px;
+      }
+
+      /* Tablet (768px - 1024px) */
+      @media (max-width: 768px) {
+        .gallery {
+          column-count: 2;
         }
       }
+
+      /* Telefon Orta (480px - 600px) */
       @media (max-width: 600px) {
-        body {
-          padding: 20px;
-        }
-        h1 {
-          font-size: 1.8rem;
-          letter-spacing: 3px;
-          margin-bottom: 30px;
-        }
         .gallery {
           column-count: 1;
           column-gap: 0;
         }
       }
 
+      /* Telefon Küçük (<480px) */
+      @media (max-width: 480px) {
+        body {
+          padding: clamp(10px, 3vw, 15px);
+        }
+      }
+
       /* Dil Butonları Sağ Üst Sabit Konum */
       .lang-switcher {
-        position: fixed; /* Sayfa kaysa da sağ üstte çakılı kalır */
-        right: 40px; /* Sağdan boşluk */
-        top: 35px; /* Üstten boşluk */
+        position: fixed;
+        right: clamp(15px, 4vw, 40px);
+        top: clamp(15px, 3vw, 35px);
         display: flex;
-        gap: 12px;
-        font-size: 11px;
-        letter-spacing: 2px;
-        z-index: 9999; /* Her şeyin en üstünde durur */
+        gap: clamp(8px, 2vw, 12px);
+        font-size: clamp(8px, 2vw, 11px);
+        letter-spacing: clamp(1px, 1vw, 2px);
+        z-index: 9999;
       }
 
       .lang-switcher span {
@@ -188,18 +169,33 @@
         cursor: default;
         color: white;
       }
-      @media (max-width: 768px) {
-        .back-nav,
-        .lang-switcher {
-          top: 20px;
-          font-size: 10px;
-        }
-        .back-nav {
-          left: 20px;
-        }
-        .lang-switcher {
-          right: 20px;
-        }
+
+      /* NEXT CATEGORY SEÇİMİ */
+      .next-category-section {
+        margin-top: clamp(50px, 10vw, 100px);
+        text-align: center;
+        border-top: 1px solid #222;
+        padding-top: clamp(30px, 5vw, 50px);
+      }
+
+      .next-cat-label {
+        font-size: clamp(14px, 3vw, 20px);
+        letter-spacing: clamp(1px, 1.5vw, 2px);
+        color: #555;
+      }
+
+      .next-cat-link {
+        color: #fff;
+        text-decoration: none;
+        font-size: clamp(1.2rem, 6vw, 2rem);
+        letter-spacing: clamp(2px, 2vw, 5px);
+        text-transform: uppercase;
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+
+      .next-cat-link:hover {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
       }
     </style>
   </head>
@@ -215,7 +211,6 @@
     <h1
       class="lang-key"
       id="arch-page-title"
-      style="letter-spacing: 10px; font-weight: 300; margin-bottom: 50px"
     >
       ARCHITECTURAL
     </h1>
@@ -234,32 +229,17 @@
         <img src="mimariphoto.webp" alt="4" loading="lazy" decoding="async" />
       </div>
     </div>
-    <div
-      style="
-        margin-top: 100px;
-        text-align: center;
-        border-top: 1px solid #222;
-        padding-top: 50px;
-      "
-    >
+    <div class="next-category-section">
       <p
-        class="lang-key"
+        class="lang-key next-cat-label"
         id="next-cat-label"
-        style="font-size: 20px; letter-spacing: 2px; color: #555"
       >
         NEXT CATEGORY
       </p>
       <a
         href="product.html"
-        class="lang-key"
+        class="lang-key next-cat-link"
         id="next-cat-product"
-        style="
-          color: #fff;
-          text-decoration: none;
-          font-size: 2rem;
-          letter-spacing: 5px;
-          text-transform: uppercase;
-        "
       >
         PRODUCT →
       </a>
