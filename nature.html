@@ -6,12 +6,32 @@
     <title>Nature | Merve Kılıç</title>
     <style>
       /* 1. SAYFA GENELİ */
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        overflow-x: hidden;
+      }
+
       body {
         background-color: #000;
         color: #fff;
         font-family: "Arial", sans-serif;
         margin: 0;
-        padding: 40px;
+        padding: clamp(15px, 5vw, 40px);
+        overflow-x: hidden;
+      }
+
+      /* 1.5 BAŞLIK RESPONSİF STİL */
+      h1 {
+        font-size: clamp(1.5rem, 8vw, 3.5rem);
+        letter-spacing: clamp(2px, 2vw, 10px);
+        margin: 0 0 clamp(20px, 5vw, 50px) 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        font-weight: 300;
       }
 
       /* 2. GERİ DÖN BUTONU */
@@ -21,40 +41,35 @@
         color: rgba(255, 255, 255, 0.6);
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         padding: 5px 0;
-        font-size: 20px;
-        letter-spacing: 3px;
+        font-size: clamp(14px, 3vw, 20px);
+        letter-spacing: clamp(1px, 1.5vw, 3px);
         text-transform: uppercase;
-        margin-bottom: 60px;
+        margin-bottom: clamp(30px, 8vw, 60px);
         transition: all 0.4s ease;
       }
 
       .back-button:hover {
         color: #fff;
         border-bottom: 1px solid #fff;
-        padding-left: 10px; /* Fareyle üzerine gelince sağa kayma efekti */
+        padding-left: 10px;
       }
 
-      /* 1. Kapsayıcıdaki taşmaları engelle */
       .gallery {
         column-count: 3;
-        column-gap: 20px;
-        padding-bottom: 50px;
-        /* Ekstra güvenlik satırı: */
-        perspective: 1000px;
+        column-gap: clamp(10px, 3vw, 20px);
+        padding-bottom: clamp(30px, 5vw, 50px);
       }
 
       /* 2. Resimlerin kutusunu sabitle */
       .gallery-item {
         display: inline-block;
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: clamp(15px, 3vw, 20px);
         opacity: 0;
         transform: translateY(30px);
         animation: slideUp 0.8s ease-out forwards;
-
-        /* ÇÖZÜM BURADA: Tarayıcıya bu elementin bir katman olduğunu bildir */
         backface-visibility: hidden;
-        -webkit-column-break-inside: avoid; /* Resmin sütun arasında bölünmesini engeller */
+        -webkit-column-break-inside: avoid;
         break-inside: avoid;
       }
 
@@ -65,26 +80,20 @@
         display: block;
         border-radius: 4px;
         transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        /* Resmin kaybolmasını engelleyen en önemli satır: */
         transform: translateZ(0);
         will-change: transform;
       }
 
       .gallery-item:hover img {
-        /* Ölçeği çok az küçültüyoruz (1.03 -> 1.02) daha stabil olması için */
         transform: scale(1.02) translateZ(0);
         opacity: 1 !important;
       }
 
-      /* Animasyon bittikten sonra görünür kalmasını sağlayan komut */
-      .gallery-item {
-        display: inline-block;
-        width: 100%;
-        margin-bottom: 20px;
-        opacity: 0;
-        transform: translateY(30px);
-        /* forwards komutu animasyon bittiğinde son halini (opacity:1) korur */
-        animation: slideUp 0.8s ease-out forwards;
+      @keyframes slideUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       /* 4. SIRALI GİRİŞ ANİMASYONU (Delay) */
@@ -104,24 +113,36 @@
         animation-delay: 0.5s;
       }
 
-      @keyframes slideUp {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* 5. MOBİL UYUMLULUK */
-      @media (max-width: 900px) {
+      /* RESPONSIVE BREAKPOINT'LER */
+      /* Tablet & Desktop Orta (900px+) */
+      @media (max-width: 1024px) {
         .gallery {
           column-count: 2;
         }
       }
+
+      /* Tablet (768px - 1024px) */
+      @media (max-width: 768px) {
+        .gallery {
+          column-count: 2;
+        }
+      }
+
+      /* Telefon Orta (480px - 600px) */
       @media (max-width: 600px) {
         .gallery {
           column-count: 1;
+          column-gap: 0;
         }
       }
+
+      /* Telefon Küçük (<480px) */
+      @media (max-width: 480px) {
+        body {
+          padding: clamp(10px, 3vw, 15px);
+        }
+      }
+
       /* Morluk Engelleyici ve Geri Butonu Stili */
       #back-to-portfolio,
       .back-button,
@@ -135,15 +156,17 @@
         padding-left: 10px;
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
       }
-      /* Dil Butonları Sabitleme */
+
+      /* Dil Butonları Sağ Üst Sabit Konum */
       .lang-switcher {
         position: fixed;
-        right: 40px;
-        top: 35px;
+        right: clamp(15px, 4vw, 40px);
+        top: clamp(15px, 3vw, 35px);
         z-index: 9999;
         display: flex;
-        gap: 12px;
-        font-size: 11px;
+        gap: clamp(8px, 2vw, 12px);
+        font-size: clamp(8px, 2vw, 11px);
+        letter-spacing: clamp(1px, 1vw, 2px);
       }
       .lang-switcher span {
         cursor: pointer;
@@ -154,18 +177,33 @@
         opacity: 1;
         border-bottom: 1px solid white;
       }
-      @media (max-width: 768px) {
-        .back-nav,
-        .lang-switcher {
-          top: 20px;
-          font-size: 10px;
-        }
-        .back-nav {
-          left: 20px;
-        }
-        .lang-switcher {
-          right: 20px;
-        }
+
+      /* NEXT CATEGORY SEÇİMİ */
+      .next-category-section {
+        margin-top: clamp(50px, 10vw, 100px);
+        text-align: center;
+        border-top: 1px solid #222;
+        padding-top: clamp(30px, 5vw, 50px);
+      }
+
+      .next-cat-label {
+        font-size: clamp(14px, 3vw, 20px);
+        letter-spacing: clamp(1px, 1.5vw, 2px);
+        color: #555;
+      }
+
+      .next-cat-link {
+        color: #fff;
+        text-decoration: none;
+        font-size: clamp(1.2rem, 6vw, 2rem);
+        letter-spacing: clamp(2px, 2vw, 5px);
+        text-transform: uppercase;
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+
+      .next-cat-link:hover {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
       }
     </style>
   </head>
@@ -182,7 +220,6 @@
     <h1
       class="lang-key"
       id="nature-page-title"
-      style="letter-spacing: 10px; font-weight: 300; margin-bottom: 50px"
     >
       NATURE
     </h1>
@@ -221,32 +258,17 @@
         />
       </div>
     </div>
-    <div
-      style="
-        margin-top: 100px;
-        text-align: center;
-        border-top: 1px solid #222;
-        padding-top: 50px;
-      "
-    >
+    <div class="next-category-section">
       <p
-        class="lang-key"
+        class="lang-key next-cat-label"
         id="next-cat-label"
-        style="font-size: 20px; letter-spacing: 2px; color: #555"
       >
         NEXT CATEGORY
       </p>
       <a
         href="light-shadow.html"
-        class="lang-key"
+        class="lang-key next-cat-link"
         id="next-cat-light-link"
-        style="
-          color: #fff;
-          text-decoration: none;
-          font-size: 2rem;
-          letter-spacing: 5px;
-          text-transform: uppercase;
-        "
         >LIGHT&SHADOW →</a
       >
     </div>
