@@ -20,6 +20,10 @@
         font-family: "Arial", sans-serif;
         overflow-x: hidden;
       }
+      /* Tüm elemanlar için kutu modelini sabitleyelim */
+      * {
+        box-sizing: border-box;
+      }
 
       /* 2. ÜST MENÜ (NAVBAR) */
       .navbar {
@@ -226,59 +230,59 @@
         margin-top: 10px;
         color: #ccc;
       }
-     /* 📸 6. GALERİ TASARIMI (RECENT WORKS) - GÜNCEL VE ORTALANMIŞ */
-.recent-works {
-    padding: 80px 20px; /* Üstten daha ferah bir boşluk bıraktık */
-    background-color: #000;
-    text-align: center;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+      /* 📸 6. GALERİ TASARIMI (RECENT WORKS) - GÜNCEL VE ORTALANMIŞ */
+      .recent-works {
+        padding: 80px 20px; /* Üstten daha ferah bir boşluk bıraktık */
+        background-color: #000;
+        text-align: center;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-.section-title {
-    font-size: 2.5rem;
-    font-weight: 300;
-    letter-spacing: 5px;
-    margin-bottom: 60px;
-    text-transform: uppercase;
-}
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 300;
+        letter-spacing: 5px;
+        margin-bottom: 60px;
+        text-transform: uppercase;
+      }
 
-.works-grid {
-    display: grid;
-    /* Sabit 4 yerine elemanları ortalayan esnek yapı */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-    gap: 30px; 
-    width: 100%;
-    max-width: 1600px; /* Geniş ekranlarda kategorilerin aşırı yayılmasını önler */
-    margin: 0 auto !important; /* Izgarayı merkeze çiviler */
-    justify-content: center !important; /* Elemanları içeride ortalar */
-    padding: 0 40px;
-}
+      .works-grid {
+        display: grid;
+        /* Sabit 4 yerine elemanları ortalayan esnek yapı */
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        width: 100%;
+        max-width: 1600px; /* Geniş ekranlarda kategorilerin aşırı yayılmasını önler */
+        margin: 0 auto !important; /* Izgarayı merkeze çiviler */
+        justify-content: center !important; /* Elemanları içeride ortalar */
+        padding: 0 40px;
+      }
 
-.work-item {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 2/3; /* Fujifilm X-T5'in o dikey estetiğini korur */
-    overflow: hidden;
-    cursor: pointer;
-    background-color: #0a0a0a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+      .work-item {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 2/3; /* Fujifilm X-T5'in o dikey estetiğini korur */
+        overflow: hidden;
+        cursor: pointer;
+        background-color: #0a0a0a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-.work-item img {
-    width: 100%; /* Beyaz boşlukları kapatmak için %100 yaptık */
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-}
+      .work-item img {
+        width: 100%; /* Beyaz boşlukları kapatmak için %100 yaptık */
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      }
 
-.work-item:hover img {
-    transform: scale(1.08); /* Yumuşak bir odaklanma efekti */
-}
+      .work-item:hover img {
+        transform: scale(1.08); /* Yumuşak bir odaklanma efekti */
+      }
 
       /* Yazı Katmanı (Overlay) Düzenlemesi */
       .work-overlay {
@@ -325,21 +329,27 @@
       .work-item:hover img {
         transform: scale(1.1);
       }
-      /* Galeriyi yan yana dizmek için (5 kategori) */
+      /* Galeriyi tek satırda düzgün ortalamak ve orantılı yapmak için */
       .works-grid {
         display: grid;
-        grid-template-columns: repeat(5, 1fr); /* 5 kategori yan yana */
+        grid-template-columns: repeat(5, minmax(0, 1fr)); /* 5 eşit sütun */
         gap: 20px;
         padding: 20px;
         max-width: 1400px;
-        margin: 0 auto;
+        margin: 0 auto; /* Ortala */
+        justify-items: stretch; /* Her sütunu doldursun */
+        align-items: stretch;
       }
 
       .work-item {
         position: relative;
-        height: 500px;
+        width: 100%;
+        aspect-ratio: 2/3; /* Orantıyı koru ve tek satırda düzgün görünsün */
         overflow: hidden;
         background: #111;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       /* Üzerine gelince kategori isminin görünümü */
