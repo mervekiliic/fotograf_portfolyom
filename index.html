@@ -226,49 +226,59 @@
         margin-top: 10px;
         color: #ccc;
       }
-      /* 📸 6. GALERİ TASARIMI (RECENT WORKS) */
-      .recent-works {
-        padding: 50px 50px;
-        background-color: #000;
-        text-align: center;
-      }
+     /* 📸 6. GALERİ TASARIMI (RECENT WORKS) - GÜNCEL VE ORTALANMIŞ */
+.recent-works {
+    padding: 80px 20px; /* Üstten daha ferah bir boşluk bıraktık */
+    background-color: #000;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-      .section-title {
-        font-size: 2.5rem;
-        font-weight: 300;
-        letter-spacing: 5px;
-        margin-bottom: 60px;
-        text-transform: uppercase;
-      }
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 5px;
+    margin-bottom: 60px;
+    text-transform: uppercase;
+}
 
-      .works-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); /* 4 eşit sütun oluşturur */
-        gap: 20px; /* Kareler arası boşluk */
-        margin-top: 60px; /* Başlıktan aşağıya doğru 60px itelim ⬇️ */
-        padding: 0 50px;
-      }
+.works-grid {
+    display: grid;
+    /* Sabit 4 yerine elemanları ortalayan esnek yapı */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 30px; 
+    width: 100%;
+    max-width: 1600px; /* Geniş ekranlarda kategorilerin aşırı yayılmasını önler */
+    margin: 0 auto !important; /* Izgarayı merkeze çiviler */
+    justify-content: center !important; /* Elemanları içeride ortalar */
+    padding: 0 40px;
+}
 
-      .work-item {
-        position: relative;
-        height: 100px; /* Karelerin yüksekliği */
-        overflow: hidden;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-        aspect-ratio: 2/3; /* Tüm fotoğrafları aynı boyutta (dikey) tutar 📏 */
-        display: flex; /* İçeriği yönetmek için */
-        align-items: center; /* Dikeyde tam ortalar 🎯 */
-        justify-content: center; /* Yatayda tam ortalar */
-        background-color: #0a0a0a;
-      }
+.work-item {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2/3; /* Fujifilm X-T5'in o dikey estetiğini korur */
+    overflow: hidden;
+    cursor: pointer;
+    background-color: #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-      .work-item img {
-        width: 90%;
-        height: 90%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-      }
+.work-item img {
+    width: 100%; /* Beyaz boşlukları kapatmak için %100 yaptık */
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.work-item:hover img {
+    transform: scale(1.08); /* Yumuşak bir odaklanma efekti */
+}
 
       /* Yazı Katmanı (Overlay) Düzenlemesi */
       .work-overlay {
@@ -315,15 +325,14 @@
       .work-item:hover img {
         transform: scale(1.1);
       }
-      /* Galeriyi 2x2 veya yan yana dizmek için (4 kategori olduğu için) */
+      /* Galeriyi yan yana dizmek için (5 kategori) */
       .works-grid {
         display: grid;
-        grid-template-columns: repeat(
-          auto-fit,
-          minmax(300px, 1fr)
-        ); /* Ekran boyutuna göre 2 veya 4 sıralar */
+        grid-template-columns: repeat(5, 1fr); /* 5 kategori yan yana */
         gap: 20px;
         padding: 20px;
+        max-width: 1400px;
+        margin: 0 auto;
       }
 
       .work-item {
@@ -496,9 +505,9 @@
           object-position: center !important;
         }
 
-        /* 8. Galerisi mobilde 2 sütunlu olsun */
+        /* 8. Galerisi tabletde 3 sütunlu olsun */
         .works-grid {
-          grid-template-columns: repeat(2, 1fr) !important;
+          grid-template-columns: repeat(3, 1fr) !important;
           padding: 20px !important;
           gap: 15px !important;
           justify-items: center !important;
@@ -547,9 +556,9 @@
           letter-spacing: 2px !important;
         }
 
-        /* Galerisi tek sütunlu olsun */
+        /* Galerisi 2 sütunlu olsun */
         .works-grid {
-          grid-template-columns: 1fr !important;
+          grid-template-columns: repeat(2, 1fr) !important;
           justify-items: center !important;
         }
 
@@ -680,6 +689,13 @@
             <span class="lang-key" id="work-light">light&shadow</span>
           </div>
         </a>
+
+        <a href="street.html" class="work-item">
+          <img src="kapak5.webp" alt="sokak" loading="lazy" decoding="async" />
+          <div class="work-overlay">
+            <span class="lang-key" id="work-street">street</span>
+          </div>
+        </a>
       </div>
     </section>
     <script>
@@ -700,6 +716,7 @@
           "work-prod": "product",
           "work-nature": "nature",
           "work-light": "light&shadow",
+          "work-street": "street",
         },
         tr: {
           "nav-portfolio": "Portfolyo",
@@ -715,6 +732,7 @@
           "work-arch": "mimari",
           "work-prod": "ürün",
           "work-nature": "doğa",
+          "work-street": "sokak",
           "work-light": "ışık & gölge",
         },
       };
