@@ -341,9 +341,9 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        background: rgba(255,255,255,0.04);
-        color: rgba(255,255,255,0.95);
-        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255, 255, 255, 0.04);
+        color: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         width: 36px;
         height: 36px;
         border-radius: 8px;
@@ -355,17 +355,24 @@
         z-index: 50;
         opacity: 0.7;
         box-shadow: none;
-        transition: opacity 0.18s ease, transform 0.18s ease, background 0.18s ease;
+        transition:
+          opacity 0.18s ease,
+          transform 0.18s ease,
+          background 0.18s ease;
       }
 
       .scroll-btn:hover {
         opacity: 1;
         transform: translateY(-50%) scale(1.04);
-        background: rgba(255,255,255,0.06);
+        background: rgba(255, 255, 255, 0.06);
       }
 
-      .scroll-btn.left { left: 8px; }
-      .scroll-btn.right { right: 8px; }
+      .scroll-btn.left {
+        left: 8px;
+      }
+      .scroll-btn.right {
+        right: 8px;
+      }
       /* Galeriyi tek satırda düzgün ortalamak ve orantılı yapmak için */
       .works-grid {
         display: grid;
@@ -746,49 +753,63 @@
     <section id="portfolio" class="recent-works">
       <h2 class="section-title lang-key" id="section-works">Recent Works</h2>
       <div class="works-wrapper">
-        <button class="scroll-btn left" id="scrollLeft" aria-label="Önceki">◀</button>
+        <button class="scroll-btn left" id="scrollLeft" aria-label="Önceki">
+          ◀
+        </button>
         <div class="works-grid">
-        <a href="architectural.html" class="work-item">
-          <img src="kapak1.webp" alt="mimari" loading="lazy" decoding="async" />
-          <div class="work-overlay">
-            <span class="lang-key" id="work-arch">architectural</span>
-          </div>
-        </a>
+          <a href="architectural.html" class="work-item">
+            <img
+              src="kapak1.webp"
+              alt="mimari"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="work-overlay">
+              <span class="lang-key" id="work-arch">architectural</span>
+            </div>
+          </a>
 
-        <a href="product.html" class="work-item">
-          <img src="kapak2.webp" alt="ürün" loading="lazy" decoding="async" />
-          <div class="work-overlay">
-            <span class="lang-key" id="work-prod">product</span>
-          </div>
-        </a>
+          <a href="product.html" class="work-item">
+            <img src="kapak2.webp" alt="ürün" loading="lazy" decoding="async" />
+            <div class="work-overlay">
+              <span class="lang-key" id="work-prod">product</span>
+            </div>
+          </a>
 
-        <a href="nature.html" class="work-item">
-          <img src="kapak3.webp" alt="doğa" loading="lazy" decoding="async" />
-          <div class="work-overlay">
-            <span class="lang-key" id="work-nature">nature</span>
-          </div>
-        </a>
+          <a href="nature.html" class="work-item">
+            <img src="kapak3.webp" alt="doğa" loading="lazy" decoding="async" />
+            <div class="work-overlay">
+              <span class="lang-key" id="work-nature">nature</span>
+            </div>
+          </a>
 
-        <a href="light-shadow.html" class="work-item">
-          <img
-            src="kapak4.webp"
-            alt="ışıkgölge"
-            loading="lazy"
-            decoding="async"
-          />
-          <div class="work-overlay">
-            <span class="lang-key" id="work-light">light&shadow</span>
-          </div>
-        </a>
+          <a href="light-shadow.html" class="work-item">
+            <img
+              src="kapak4.webp"
+              alt="ışıkgölge"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="work-overlay">
+              <span class="lang-key" id="work-light">light&shadow</span>
+            </div>
+          </a>
 
-        <a href="street.html" class="work-item">
-          <img src="kapak5.webp" alt="sokak" loading="lazy" decoding="async" />
-          <div class="work-overlay">
-            <span class="lang-key" id="work-street">street</span>
-          </div>
-        </a>
+          <a href="street.html" class="work-item">
+            <img
+              src="kapak5.webp"
+              alt="sokak"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="work-overlay">
+              <span class="lang-key" id="work-street">street</span>
+            </div>
+          </a>
         </div>
-        <button class="scroll-btn right" id="scrollRight" aria-label="Sonraki">▶</button>
+        <button class="scroll-btn right" id="scrollRight" aria-label="Sonraki">
+          ▶
+        </button>
       </div>
     </section>
     <script>
@@ -870,34 +891,34 @@
       });
       // İlk açılışta architectural kategorisini göster
       document.addEventListener("DOMContentLoaded", () => {
-        const grid = document.querySelector('.works-grid');
-        const archLabel = document.getElementById('work-arch');
+        const grid = document.querySelector(".works-grid");
+        const archLabel = document.getElementById("work-arch");
         if (grid && archLabel) {
-          const archItem = archLabel.closest('.work-item');
-            if (archItem) {
-              // Hesaplamayı grid/viewport farkına göre yapıp küçük bir gecikme ile uygula
-              setTimeout(() => {
-                const gridRect = grid.getBoundingClientRect();
-                const itemRect = archItem.getBoundingClientRect();
-                const relativeLeft = itemRect.left - gridRect.left;
-                const target = Math.max(0, grid.scrollLeft + relativeLeft);
-                grid.scrollTo({ left: target, behavior: 'smooth' });
-              }, 60);
-            }
+          const archItem = archLabel.closest(".work-item");
+          if (archItem) {
+            // Hesaplamayı grid/viewport farkına göre yapıp küçük bir gecikme ile uygula
+            setTimeout(() => {
+              const gridRect = grid.getBoundingClientRect();
+              const itemRect = archItem.getBoundingClientRect();
+              const relativeLeft = itemRect.left - gridRect.left;
+              const target = Math.max(0, grid.scrollLeft + relativeLeft);
+              grid.scrollTo({ left: target, behavior: "smooth" });
+            }, 60);
+          }
         }
 
         // Scroll butonları işlevselliği
-        const btnLeft = document.getElementById('scrollLeft');
-        const btnRight = document.getElementById('scrollRight');
+        const btnLeft = document.getElementById("scrollLeft");
+        const btnRight = document.getElementById("scrollRight");
         if (grid && btnLeft && btnRight) {
           const scrollAmount = () => Math.round(grid.clientWidth * 0.8);
 
-          btnLeft.addEventListener('click', () => {
-            grid.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+          btnLeft.addEventListener("click", () => {
+            grid.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
           });
 
-          btnRight.addEventListener('click', () => {
-            grid.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+          btnRight.addEventListener("click", () => {
+            grid.scrollBy({ left: scrollAmount(), behavior: "smooth" });
           });
         }
       });
