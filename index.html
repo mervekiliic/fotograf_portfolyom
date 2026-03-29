@@ -586,8 +586,8 @@
         }
 
         .work-item {
-          flex: 0 0 260px !important; /* Mobilde sabit genişlik */
-          height: 250px !important;
+          flex: 0 0 220px !important; /* Mobilde biraz daha küçük genişlik */
+          height: 230px !important;
           scroll-snap-align: start;
         }
         /* İçerik konteyneri soldan boşluk bırakıyorsa sıfırlıyoruz */
@@ -654,8 +654,8 @@
         }
 
         .work-item {
-          flex: 0 0 233px !important; /* Mobilde sabit genişlik (boyut korunacak) */
-          height: 350px !important;
+          flex: 0 0 200px !important; /* Daha küçük kartlar */
+          height: 300px !important;
           scroll-snap-align: start;
         }
         .recent-works {
@@ -907,18 +907,41 @@
           }
         }
 
-        // Scroll butonları işlevselliği
-        const btnLeft = document.getElementById("scrollLeft");
-        const btnRight = document.getElementById("scrollRight");
+        // Scroll butonları işlevselliği (birer kategori ilerle + wrap)
+        const btnLeft = document.getElementById('scrollLeft');
+        const btnRight = document.getElementById('scrollRight');
         if (grid && btnLeft && btnRight) {
-          const scrollAmount = () => Math.round(grid.clientWidth * 0.8);
+          const firstItem = grid.querySelector('.work-item');
+          const computedGap = parseFloat(getComputedStyle(grid).gap) || 0;
+          const itemWidth = firstItem ? firstItem.offsetWidth : Math.round(grid.clientWidth * 0.6);
+          const scrollAmount = () => Math.round(itemWidth + computedGap);
 
-          btnLeft.addEventListener("click", () => {
-            grid.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+          btnLeft.addEventListener('click', () => {
+            const maxScrollLeft = grid.scrollWidth - grid.clientWidth;
+            const amount = scrollAmount();
+            if (grid.scrollLeft <= 5) {
+              // Baştaysak sona sar
+              grid.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
+            } else if (grid.scrollLeft - amount <= 5) {
+              // Bir adımla başa geliyorsa, başa sar
+              grid.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+              grid.scrollBy({ left: -amount, behavior: 'smooth' });
+            }
           });
 
-          btnRight.addEventListener("click", () => {
-            grid.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+          btnRight.addEventListener('click', () => {
+            const maxScrollLeft = grid.scrollWidth - grid.clientWidth;
+            const amount = scrollAmount();
+            if (grid.scrollLeft >= maxScrollLeft - 5) {
+              // Sondaysak başa sar
+              grid.scrollTo({ left: 0, behavior: 'smooth' });
+            } else if (grid.scrollLeft + amount >= maxScrollLeft - 5) {
+              // Bir adımda sona geliyorsa, sona sar
+              grid.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
+            } else {
+              grid.scrollBy({ left: amount, behavior: 'smooth' });
+            }
           });
         }
       });
