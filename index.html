@@ -357,9 +357,8 @@
         border-radius: 3px;
         transform: translateX(0%);
         transition:
-          transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1),
-          width 260ms ease,
-          opacity 260ms ease;
+          width 220ms ease,
+          opacity 220ms ease;
         opacity: 0.8;
         cursor: grab;
         will-change: transform, width;
@@ -1049,9 +1048,8 @@
                 const left = grid.offsetLeft || 0;
                 scrollbar.style.left = left + "px";
                 scrollbar.style.width = clientW + "px";
-                // place just under grid
-                const top = (grid.offsetTop || 0) + grid.clientHeight + 6;
-                scrollbar.style.top = top + "px";
+                // place just under grid using bottom to avoid layout thrash
+                scrollbar.style.bottom = "8px";
               }
 
               if (scrollWidth <= clientW + 2) {
@@ -1084,6 +1082,12 @@
 
           // initial update after layout
           setTimeout(update, 80);
+
+          // ensure update runs after images load (prevents thumb size jumps)
+          const imgs = grid.querySelectorAll("img");
+          imgs.forEach((img) => {
+            if (!img.complete) img.addEventListener("load", update);
+          });
 
           // Dragging logic using pointer events
           let dragging = false;
