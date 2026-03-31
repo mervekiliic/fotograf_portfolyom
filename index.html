@@ -905,6 +905,8 @@
         // Sonra seçilen dile (lang) 'active' sınıfını ekliyoruz
         document.getElementById("lang-" + lang).classList.add("active");
         document.getElementById("mobile-lang-" + lang).classList.add("active");
+        // Sayfa dilini güncelle (büyük harf dönüşümlerinin doğru yerel kuralla çalışması için)
+        document.documentElement.setAttribute("lang", lang);
         // --------------------------------
 
         // Seçimi hafızaya kaydet
