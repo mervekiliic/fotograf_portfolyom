@@ -178,31 +178,52 @@
         border-bottom: 1px solid white;
       }
 
-      /* NEXT CATEGORY SEÇİMİ */
-      .next-category-section {
+      /* CATEGORY NAVIGATION */
+      .category-navigation {
         margin-top: clamp(50px, 10vw, 100px);
-        text-align: center;
         border-top: 1px solid #222;
         padding-top: clamp(30px, 5vw, 50px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
       }
 
-      .next-cat-label {
-        font-size: clamp(14px, 3vw, 20px);
-        letter-spacing: clamp(1px, 1.5vw, 2px);
+      .nav-cat-block {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 140px;
+      }
+
+      .nav-cat-block.prev {
+        text-align: left;
+      }
+
+      .nav-cat-block.next {
+        text-align: right;
+      }
+
+      .nav-cat-label {
+        font-size: clamp(12px, 2.5vw, 16px);
+        letter-spacing: clamp(1px, 1vw, 2px);
         color: #555;
+        margin-bottom: 8px;
+        margin-top: 0;
       }
 
-      .next-cat-link {
+      .nav-cat-link {
         color: #fff;
         text-decoration: none;
-        font-size: clamp(1.2rem, 6vw, 2rem);
-        letter-spacing: clamp(2px, 2vw, 5px);
+        font-size: clamp(1rem, 4vw, 1.8rem);
+        letter-spacing: clamp(1px, 1.5vw, 3px);
         text-transform: uppercase;
-        display: inline-block;
         transition: all 0.3s ease;
+        display: inline-block;
       }
 
-      .next-cat-link:hover {
+      .nav-cat-link:hover {
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
       }
     </style>
@@ -252,28 +273,49 @@
           decoding="async"
         />
       </div>
+      <div class="gallery-item">
+        <img
+          src="naturenew.webp"
+          alt="DOĞA 5"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="naturenew2.webp"
+          alt="DOĞA 6"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
     </div>
-    <div class="next-category-section">
-      <p class="lang-key next-cat-label" id="next-cat-label">NEXT CATEGORY</p>
-      <a
-        href="light-shadow.html"
-        class="lang-key next-cat-link"
-        id="next-cat-light-link"
-        >LIGHT&SHADOW →</a
-      >
+    <div class="category-navigation">
+      <div class="nav-cat-block prev">
+        <p class="lang-key nav-cat-label" id="prev-cat-label">PREVIOUS CATEGORY</p>
+        <a href="product.html" class="lang-key nav-cat-link" id="prev-cat-product">← PRODUCT</a>
+      </div>
+      <div class="nav-cat-block next">
+        <p class="lang-key nav-cat-label" id="next-cat-label">NEXT CATEGORY</p>
+        <a href="light-shadow.html" class="lang-key nav-cat-link" id="next-cat-light-link">LIGHT&SHADOW →</a>
+      </div>
     </div>
     <script>
       const translations = {
         en: {
           "back-to-portfolio": "← PORTFOLIO",
           "nature-page-title": "NATURE",
+          "prev-cat-label": "PREVIOUS CATEGORY",
           "next-cat-label": "NEXT CATEGORY",
+          "prev-cat-product": "← PRODUCT",
           "next-cat-light-link": "LIGHT & SHADOW →",
         },
         tr: {
           "back-to-portfolio": "← PORTFOLYO",
           "nature-page-title": "DOĞA",
+          "prev-cat-label": "ÖNCEKİ KATEGORİ",
           "next-cat-label": "SIRADAKİ KATEGORİ",
+          "prev-cat-product": "← ÜRÜN",
           "next-cat-light-link": "IŞIK & GÖLGE →",
         },
       };
