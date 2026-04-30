@@ -59,22 +59,20 @@
       }
 
       .gallery {
-        column-count: 3;
-        column-gap: clamp(10px, 3vw, 20px);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(10px, 3vw, 20px);
         padding-bottom: clamp(30px, 5vw, 50px);
       }
 
       /* 2. Resimlerin kutusunu sabitle */
       .gallery-item {
-        display: inline-block;
+        display: block;
         width: 100%;
-        margin-bottom: clamp(15px, 3vw, 20px);
         opacity: 0;
         transform: translateY(30px);
         animation: slideUp 0.8s ease-out forwards;
         backface-visibility: hidden;
-        -webkit-column-break-inside: avoid;
-        break-inside: avoid;
       }
 
       /* 3. Hover efektini sadeleştir ve zorla */
@@ -106,22 +104,22 @@
       /* Tablet & Desktop Orta (900px+) */
       @media (max-width: 1024px) {
         .gallery {
-          column-count: 2;
+          grid-template-columns: repeat(2, 1fr);
         }
       }
 
       /* Tablet (768px - 1024px) */
       @media (max-width: 768px) {
         .gallery {
-          column-count: 2;
+          grid-template-columns: repeat(2, 1fr);
         }
       }
 
       /* Telefon Orta (480px - 600px) */
       @media (max-width: 600px) {
         .gallery {
-          column-count: 1;
-          column-gap: 0;
+          grid-template-columns: 1fr;
+          gap: 0;
         }
       }
 
@@ -225,6 +223,15 @@
       </div>
       <div class="gallery-item">
         <img src="street5.webp" alt="5" loading="lazy" decoding="async" />
+      </div>
+      <div class="gallery-item">
+        <img src="streetnew.webp" alt="6" loading="lazy" decoding="async" />
+      </div>
+      <div class="gallery-item">
+        <img src="streetnew1.webp" alt="7" loading="lazy" decoding="async" />
+      </div>
+      <div class="gallery-item">
+        <img src="streetnew3.webp" alt="8" loading="lazy" decoding="async" />
       </div>
     </div>
     <div class="next-category-section">
