@@ -63,6 +63,7 @@
         grid-template-columns: repeat(3, 1fr);
         gap: clamp(10px, 3vw, 20px);
         padding-bottom: clamp(30px, 5vw, 50px);
+        grid-auto-flow: dense;
       }
 
       /* 2. Resimlerin kutusunu sabitle */
@@ -240,29 +241,36 @@
         <img src="street3.webp" alt="3" loading="lazy" decoding="async" />
       </div>
       <div class="gallery-item">
-        <img src="street4.webp" alt="4" loading="lazy" decoding="async" />
-      </div>
-      <div class="gallery-item">
         <img src="street5.webp" alt="5" loading="lazy" decoding="async" />
       </div>
       <div class="gallery-item">
         <img src="streetnew.webp" alt="6" loading="lazy" decoding="async" />
       </div>
       <div class="gallery-item">
-        <img src="streetnew1.webp" alt="7" loading="lazy" decoding="async" />
-      </div>
-      <div class="gallery-item">
         <img src="streetnew3.webp" alt="8" loading="lazy" decoding="async" />
       </div>
+
     </div>
     <div class="category-navigation">
       <div class="nav-cat-block prev">
-        <p class="lang-key nav-cat-label" id="prev-cat-label">PREVIOUS CATEGORY</p>
-        <a href="light-shadow.html" class="lang-key nav-cat-link" id="prev-cat-light">← LIGHT&SHADOW</a>
+        <p class="lang-key nav-cat-label" id="prev-cat-label">
+          PREVIOUS CATEGORY
+        </p>
+        <a
+          href="light-shadow.html"
+          class="lang-key nav-cat-link"
+          id="prev-cat-light"
+          >← LIGHT&SHADOW</a
+        >
       </div>
       <div class="nav-cat-block next">
         <p class="lang-key nav-cat-label" id="next-cat-label">NEXT CATEGORY</p>
-        <a href="architectural.html" class="lang-key nav-cat-link" id="next-cat-architectural">ARCHITECTURAL →</a>
+        <a
+          href="architectural.html"
+          class="lang-key nav-cat-link"
+          id="next-cat-architectural"
+          >ARCHITECTURAL →</a
+        >
       </div>
     </div>
     <script>
