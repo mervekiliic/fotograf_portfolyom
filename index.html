@@ -278,10 +278,12 @@
         height: 100%;
         object-fit: cover;
         transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        filter: grayscale(100%);
       }
 
       .work-item:hover img {
         transform: scale(1.08); /* Yumuşak bir odaklanma efekti */
+        filter: grayscale(0%);
       }
 
       /* Yazı Katmanı (Overlay) Düzenlemesi */
@@ -774,7 +776,7 @@
 
     <section class="hero">
       <img
-        src="back.webp"
+        src="kapaknew3.webp"
         class="hero-bg"
         alt="Kapak Fotoğrafı"
         loading="eager"
