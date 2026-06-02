@@ -232,7 +232,7 @@
       }
       /* 📸 6. GALERİ TASARIMI (RECENT WORKS) - GÜNCEL VE ORTALANMIŞ */
       .recent-works {
-        padding: 80px 20px; /* Üstten daha ferah bir boşluk bıraktık */
+        padding: 80px 0; /* Üstten daha ferah bir boşluk bıraktık */
         background-color: #000;
         text-align: center;
         width: 100%;
@@ -247,6 +247,7 @@
         letter-spacing: 5px;
         margin-bottom: 60px;
         text-transform: uppercase;
+        padding: 0 40px;
       }
 
       .works-grid {
@@ -271,6 +272,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        user-select: none;
+        -webkit-user-drag: none;
       }
 
       .work-item img {
@@ -279,6 +282,7 @@
         object-fit: cover;
         transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         filter: grayscale(100%);
+        pointer-events: none;
       }
 
       .work-item:hover img {
@@ -335,93 +339,73 @@
       .works-wrapper {
         position: relative;
         width: 100%;
-        max-width: 1400px;
+        max-width: 100%;
         margin: 0 auto;
-      }
-
-      /* Visual scrollbar under the works grid (mobile) - minimal */
-      .works-scrollbar {
-        display: none; /* shown on mobile via media query */
-        position: absolute; /* will be positioned to match grid */
-        left: 0;
-        height: 3px;
-        background: rgba(255, 255, 255, 0.02);
-        border-radius: 3px;
         overflow: hidden;
-        touch-action: none; /* allow pointer dragging */
-        will-change: transform, opacity, width;
       }
 
-      .works-scrollbar-thumb {
-        width: 12%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.7);
-        border-radius: 3px;
-        transform: translateX(0%);
-        transition:
-          width 220ms ease,
-          opacity 220ms ease;
-        opacity: 0.8;
-        cursor: grab;
-        will-change: transform, width;
-      }
-
-      .works-scrollbar-thumb:active {
-        cursor: grabbing;
-      }
-
+      /* Custom circular navigation buttons for the infinite slider */
       .scroll-btn {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        background: rgba(255, 255, 255, 0.04);
+        background: rgba(0, 0, 0, 0.6);
         color: rgba(255, 255, 255, 0.95);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
-        display: none; /* Varsayılan gizli, mobilde gösterilecek */
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 14px;
+        font-size: 16px;
         cursor: pointer;
         z-index: 50;
-        opacity: 0.7;
-        box-shadow: none;
+        opacity: 0;
+        pointer-events: auto;
         transition:
-          opacity 0.18s ease,
-          transform 0.18s ease,
-          background 0.18s ease;
+          opacity 0.3s ease,
+          transform 0.3s ease,
+          background-color 0.3s ease,
+          border-color 0.3s ease;
+      }
+
+      .works-wrapper:hover .scroll-btn {
+        opacity: 1;
       }
 
       .scroll-btn:hover {
-        opacity: 1;
-        transform: translateY(-50%) scale(1.04);
-        background: rgba(255, 255, 255, 0.06);
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.4);
+        color: #fff;
+        transform: translateY(-50%) scale(1.1);
       }
 
       .scroll-btn.left {
-        left: 8px;
+        left: 20px;
       }
       .scroll-btn.right {
-        right: 8px;
+        right: 20px;
       }
-      /* Galeriyi tek satırda düzgün ortalamak ve orantılı yapmak için */
+
+      /* Hardware-accelerated flex track for seamless infinite slider */
       .works-grid {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr)); /* 5 eşit sütun */
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
         gap: 20px;
-        padding: 20px;
-        max-width: 1400px;
-        margin: 0 auto; /* Ortala */
-        justify-items: stretch; /* Her sütunu doldursun */
+        padding: 20px 40px;
+        width: max-content;
         align-items: stretch;
-        scroll-behavior: smooth;
+        cursor: grab;
+        will-change: transform;
       }
 
       .work-item {
         position: relative;
-        width: 100%;
+        width: 280px;
+        min-width: 280px;
+        flex-shrink: 0;
         aspect-ratio: 2/3; /* Orantıyı koru ve tek satırda düzgün görünsün */
         overflow: hidden;
         background: #111;
@@ -595,49 +579,17 @@
           left: 0 !important;
         }
 
-
-
-
-
-
         /* Mobil/tablet: yatay kaydırılabilir slide (tek satır) */
         .works-grid {
-          display: flex !important;
-          flex-direction: row;
-          gap: 18px !important;
-          overflow-x: auto !important;
-          padding: 10px 20px !important;
-          padding-left: 0 !important; /* İlk kategori ekranın başından başlasın */
-          scroll-snap-type: x mandatory;
+          gap: 15px !important;
+          padding: 15px 20px !important;
           -webkit-overflow-scrolling: touch;
-          width: 100%;
-          scroll-behavior: smooth;
           touch-action: pan-x;
-          justify-content: flex-start !important;
-        }
-
-        /* show visual scrollbar on mobile */
-        .works-scrollbar {
-          display: block !important;
-        }
-
-        /* Ok düğmelerini mobilde göster */
-        .scroll-btn {
-          display: flex !important;
-        }
-
-        .works-grid::-webkit-scrollbar {
-          display: none;
         }
 
         .work-item {
-          flex: 0 0 220px !important; /* Mobilde biraz daha küçük genişlik */
-          height: 230px !important;
-          scroll-snap-align: start;
-        }
-        /* İçerik konteyneri soldan boşluk bırakıyorsa sıfırlıyoruz */
-        .recent-works {
-          padding-left: 0 !important;
+          width: 240px !important;
+          min-width: 240px !important;
         }
 
         .work-overlay span {
@@ -646,12 +598,13 @@
         }
 
         .recent-works {
-          padding: 40px 20px !important;
+          padding: 40px 0 !important;
         }
 
         .section-title {
           font-size: 1.8rem !important;
           margin-bottom: 30px !important;
+          padding: 0 20px !important;
         }
       }
 
@@ -694,34 +647,20 @@
 
         /* Mobilde yatay kaydırılabilir slide (tek satır) */
         .works-grid {
-          display: flex !important;
-          flex-direction: row;
-          gap: 16px !important;
-          overflow-x: auto !important;
-          padding: 10px 16px !important;
-          padding-left: 0 !important; /* İlk kategori soldan görünür olsun */
-          scroll-snap-type: x mandatory;
+          gap: 12px !important;
+          padding: 12px 15px !important;
           -webkit-overflow-scrolling: touch;
           width: 100%;
-          justify-content: flex-start !important;
-        }
-
-        /* Gizli kaydırma çubuğu (isteğe bağlı, estetik için) */
-        .works-grid::-webkit-scrollbar {
-          display: none;
         }
 
         .work-item {
-          flex: 0 0 200px !important; /* Daha küçük kartlar */
-          height: 300px !important;
-          scroll-snap-align: start;
-        }
-        .recent-works {
-          padding-left: 0 !important;
+          width: 200px !important;
+          min-width: 200px !important;
         }
 
         .section-title {
           font-size: 1.5rem !important;
+          padding: 0 20px !important;
         }
       }
     </style>
@@ -861,10 +800,25 @@
               <span class="lang-key" id="work-street">street</span>
             </div>
           </a>
+
+          <a href="event.html" class="work-item">
+            <img
+              src="kapakevent.webp"
+              alt="etkinlik"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="work-overlay">
+              <span class="lang-key" id="work-event">event</span>
+            </div>
+          </a>
         </div>
-        <div class="works-scrollbar" id="worksScrollbar" aria-hidden="true">
-          <div class="works-scrollbar-thumb" id="worksScrollbarThumb"></div>
-        </div>
+        <button class="scroll-btn left" id="worksPrev" aria-label="Previous">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="scroll-btn right" id="worksNext" aria-label="Next">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
       </div>
     </section>
     <script>
@@ -886,6 +840,7 @@
           "work-nature": "nature",
           "work-light": "light&shadow",
           "work-street": "street",
+          "work-event": "event",
         },
         tr: {
           "nav-portfolio": "Portfolyo",
@@ -903,6 +858,7 @@
           "work-nature": "doğa",
           "work-street": "sokak",
           "work-light": "ışık & gölge",
+          "work-event": "etkinlik",
         },
       };
       // 2. Dili değiştiren fonksiyon
@@ -941,245 +897,245 @@
         hamburger.classList.remove("active");
       }
 
-      // 3. Sayfa açıldığında son seçilen dili kontrol et
+      // 3. Sayfa açıldığında son seçilen dili kontrol et ve otomatik scroll başlat
       document.addEventListener("DOMContentLoaded", () => {
         const savedLang = localStorage.getItem("selectedLang") || "en";
         setLanguage(savedLang);
       });
-      // İlk açılışta architectural kategorisini göster
+      // Loop slide (infinite carousel) functionality
       document.addEventListener("DOMContentLoaded", () => {
         const grid = document.querySelector(".works-grid");
-        const archLabel = document.getElementById("work-arch");
-        if (grid && archLabel) {
-          const archItem = archLabel.closest(".work-item");
-          if (archItem) {
-            // Hesaplamayı grid/viewport farkına göre yapıp küçük bir gecikme ile uygula
-            setTimeout(() => {
-              const gridRect = grid.getBoundingClientRect();
-              const itemRect = archItem.getBoundingClientRect();
-              const relativeLeft = itemRect.left - gridRect.left;
-              const target = Math.max(0, grid.scrollLeft + relativeLeft);
-              grid.scrollTo({ left: target, behavior: "smooth" });
-            }, 60);
-          }
+        if (!grid) return;
+
+        const originalItems = Array.from(grid.querySelectorAll(".work-item"));
+        const originalCount = originalItems.length;
+        if (originalCount === 0) return;
+
+        // Mark original items
+        originalItems.forEach(item => item.classList.add("original-item"));
+
+        // Clone and prepend
+        for (let i = originalCount - 1; i >= 0; i--) {
+          const clone = originalItems[i].cloneNode(true);
+          clone.classList.add("clone-item");
+          grid.insertBefore(clone, grid.firstChild);
         }
 
-        // Sayfaya girildiğinde kullanıcıya kaydırılabilir olduğunu göstermek için
-        // mobil/tablet'de (<=768px) bir kere sağa doğru kısa bir nudge yap
-        try {
-          const firstItem = grid ? grid.querySelector(".work-item") : null;
-          const computedGap = grid
-            ? parseFloat(getComputedStyle(grid).gap) || 0
-            : 0;
-          const itemWidth = firstItem
-            ? firstItem.offsetWidth
-            : Math.round((grid ? grid.clientWidth : 0) * 0.6);
-          const nudgeAmount = Math.max(
-            60,
-            Math.round(itemWidth * 0.45 + computedGap),
-          );
-
-          if (
-            grid &&
-            window.innerWidth <= 768 &&
-            !localStorage.getItem("worksNudgeShown")
-          ) {
-            // Daha belirgin, daha yavaş ve 2 kere tekrarlayan nudge
-            const initialDelay = 500; // başlangıç gecikmesi
-            const moveDelay = 1000; // kayma hareketleri arası bekleme (daha yavaş)
-            const returnDelay = 1000; // geri dönüş beklemesi
-
-            // İşaret gösterimi başlatıldığında tekrar göstermemek için işaretle
-            localStorage.setItem("worksNudgeShown", "1");
-
-            setTimeout(() => {
-              // Eğer gerçek yatay kaydırma mümkünse scrollBy ile nudge yap
-              const canScroll = grid.scrollWidth > grid.clientWidth + 2;
-
-              const doScrollNudge = () => {
-                // 1. nudge --> sağa
-                grid.scrollBy({ left: nudgeAmount, behavior: "smooth" });
-
-                // geri al
-                setTimeout(() => {
-                  grid.scrollBy({ left: -nudgeAmount, behavior: "smooth" });
-                }, returnDelay);
-
-                // 2. nudge (biraz sonra tekrar)
-                setTimeout(() => {
-                  grid.scrollBy({ left: nudgeAmount, behavior: "smooth" });
-
-                  // ikinci geri dönüş
-                  setTimeout(() => {
-                    grid.scrollBy({ left: -nudgeAmount, behavior: "smooth" });
-                  }, returnDelay);
-                }, moveDelay + returnDelay);
-              };
-
-              const doTransformNudge = () => {
-                // Görsel fallback: transform ile kaydırma taklidi yap
-                const prevTransition = grid.style.transition;
-                const prevTransform = grid.style.transform;
-                grid.style.transition = `transform ${Math.max(600, returnDelay)}ms ease`;
-                grid.style.transform = `translateX(${nudgeAmount}px)`;
-
-                setTimeout(() => {
-                  grid.style.transform = prevTransform || "translateX(0)";
-                }, returnDelay);
-
-                // 2. tekrar
-                setTimeout(() => {
-                  grid.style.transform = `translateX(${nudgeAmount}px)`;
-                  setTimeout(() => {
-                    grid.style.transform = prevTransform || "translateX(0)";
-                    // restore transition after small delay
-                    setTimeout(() => {
-                      grid.style.transition = prevTransition || "";
-                    }, 200);
-                  }, returnDelay);
-                }, moveDelay + returnDelay);
-              };
-
-              if (canScroll) {
-                doScrollNudge();
-              } else {
-                doTransformNudge();
-              }
-            }, initialDelay);
-          }
-        } catch (e) {
-          // Hata varsa sessizce yoksay
-          console.warn("works nudge error", e);
+        // Clone and append
+        for (let i = 0; i < originalCount; i++) {
+          const clone = originalItems[i].cloneNode(true);
+          clone.classList.add("clone-item");
+          grid.appendChild(clone);
         }
-        // Visual scrollbar update (mobile) + draggable thumb
-        (function () {
-          const grid = document.querySelector(".works-grid");
-          const thumb = document.getElementById("worksScrollbarThumb");
-          const scrollbar = document.getElementById("worksScrollbar");
 
-          if (!grid || !thumb || !scrollbar) return;
+        const items = Array.from(grid.querySelectorAll(".work-item"));
+        const firstOriginal = items[originalCount];
+        const firstDuplicate = items[originalCount * 2];
 
-          let rafId = null;
-          const update = () => {
-            if (rafId) cancelAnimationFrame(rafId);
-            rafId = requestAnimationFrame(() => {
-              const scrollWidth = grid.scrollWidth;
-              const clientW = grid.clientWidth;
-              // position & size scrollbar to match grid
-              const wrapper = grid.parentElement; // .works-wrapper
-              if (wrapper && scrollbar) {
-                // set width to grid's inner width and left relative to wrapper
-                const left = grid.offsetLeft || 0;
-                scrollbar.style.left = left + "px";
-                scrollbar.style.width = clientW + "px";
-                // place just under grid using bottom to avoid layout thrash
-                scrollbar.style.bottom = "8px";
-              }
+        // Measure boundaries
+        let startOffset = 0;
+        let loopWidth = 0;
 
-              if (scrollWidth <= clientW + 2) {
-                scrollbar.style.opacity = "0";
-                return;
-              }
-              scrollbar.style.opacity = "1";
-              const thumbRatio = clientW / scrollWidth;
-              const thumbPercent = Math.max(0.03, Math.min(1, thumbRatio));
-              const leftRatio = grid.scrollLeft / (scrollWidth - clientW);
+        const measure = () => {
+          // Calculate start offset (width of all prepended clones)
+          startOffset = firstOriginal.offsetLeft - grid.offsetLeft;
+          // Calculate width of one loop (original set of items)
+          loopWidth = firstDuplicate.offsetLeft - firstOriginal.offsetLeft;
+        };
 
-              // compute thumb width in px to allow precise left calculation
-              const trackWidth = scrollbar.clientWidth || clientW;
-              const thumbWidthPx = Math.max(
-                6,
-                Math.round(trackWidth * thumbPercent),
-              );
-              thumb.style.width = thumbWidthPx + "px";
+        measure();
 
-              const maxTranslatePx = Math.max(0, trackWidth - thumbWidthPx);
-              const translateXPx = Math.round(leftRatio * maxTranslatePx);
-              // set transform in px for smoother motion
-              thumb.style.transform = `translateX(${translateXPx}px)`;
-            });
-          };
+        // Active state tracker (current translate X in pixels)
+        let currentTranslate = -startOffset;
 
-          // Update on scroll & resize
-          grid.addEventListener("scroll", update, { passive: true });
-          window.addEventListener("resize", update);
+        // Apply hardware accelerated transform
+        const applyTransform = (tx) => {
+          grid.style.transform = `translate3d(${tx}px, 0, 0)`;
+        };
 
-          // initial update after layout
-          setTimeout(update, 80);
+        // Initialize position
+        applyTransform(currentTranslate);
 
-          // ensure update runs after images load (prevents thumb size jumps)
-          const imgs = grid.querySelectorAll("img");
-          imgs.forEach((img) => {
-            if (!img.complete) img.addEventListener("load", update);
+        // Ensure translations are applied to clones on load
+        const savedLang = localStorage.getItem("selectedLang") || "en";
+        setLanguage(savedLang);
+
+        // Resizing handler
+        window.addEventListener("resize", () => {
+          const relativeOffset = currentTranslate + startOffset;
+          measure();
+          currentTranslate = -startOffset + relativeOffset;
+          applyTransform(currentTranslate);
+        });
+
+        // Loop control flags
+        let isDown = false;
+        let isHovered = false;
+        let isTransitioning = false;
+        let transitionTimeout = null;
+
+        // Boundary check function to wrap position seamlessly
+        const checkBoundaries = () => {
+          // If we scrolled past the right side (too far left, translate value very negative)
+          if (currentTranslate <= -(startOffset + loopWidth)) {
+            currentTranslate += loopWidth;
+          }
+          // If we scrolled past the left side (too far right, translate value near 0 or positive)
+          else if (currentTranslate > -startOffset) {
+            currentTranslate -= loopWidth;
+          }
+        };
+
+        // Navigation arrow functionality
+        const btnNext = document.getElementById("worksNext");
+        const btnPrev = document.getElementById("worksPrev");
+
+        const scrollStep = () => {
+          const firstItem = items[0];
+          const gap = parseFloat(getComputedStyle(grid).gap) || 20;
+          return firstItem.offsetWidth + gap;
+        };
+
+        const triggerButtonScroll = (direction) => {
+          if (isTransitioning) return;
+          isTransitioning = true;
+          if (transitionTimeout) clearTimeout(transitionTimeout);
+
+          let step = scrollStep();
+          let targetTranslate = currentTranslate + (direction === "next" ? -step : step);
+
+          // Add transition class for smooth animation
+          grid.style.transition = "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)";
+          currentTranslate = targetTranslate;
+          applyTransform(currentTranslate);
+
+          transitionTimeout = setTimeout(() => {
+            // Remove transition style so drag and auto-scroll remain instant
+            grid.style.transition = "";
+            checkBoundaries();
+            applyTransform(currentTranslate);
+            isTransitioning = false;
+            lastTime = performance.now(); // reset timer
+          }, 500);
+        };
+
+        if (btnNext) {
+          btnNext.addEventListener("click", () => triggerButtonScroll("next"));
+        }
+
+        if (btnPrev) {
+          btnPrev.addEventListener("click", () => triggerButtonScroll("prev"));
+        }
+
+        // Continuous smooth scroll flow (tick function)
+        let animationFrameId = null;
+        const scrollSpeed = 120; // pixels per second (speed is slightly increased for dynamic aesthetic)
+        let lastTime = performance.now();
+
+        const tick = (time) => {
+          const delta = (time - lastTime) / 1000;
+          lastTime = time;
+
+          // Only auto-scroll when not interacting or transitioning
+          if (!isDown && !isHovered && !isTransitioning) {
+            currentTranslate -= scrollSpeed * delta;
+            checkBoundaries();
+            applyTransform(currentTranslate);
+          }
+
+          animationFrameId = requestAnimationFrame(tick);
+        };
+
+        // Start continuous loop flow
+        animationFrameId = requestAnimationFrame(tick);
+
+        // Pause continuous flow on hover or touch
+        const wrapper = document.querySelector(".works-wrapper");
+        if (wrapper) {
+          wrapper.addEventListener("pointerenter", () => {
+            isHovered = true;
           });
+          wrapper.addEventListener("pointerleave", () => {
+            isHovered = false;
+            lastTime = performance.now();
+          });
+        }
 
-          // Dragging logic using pointer events
-          let dragging = false;
-          let startX = 0;
-          let startScrollLeft = 0;
+        // Drag to scroll logic for desktop mouse users
+        let startX;
+        let dragStartTranslate;
+        let hasDragged = false;
 
-          const onPointerDown = (e) => {
+        grid.addEventListener("mousedown", (e) => {
+          if (isTransitioning) return;
+          isDown = true;
+          hasDragged = false;
+          grid.style.cursor = "grabbing";
+          startX = e.pageX;
+          dragStartTranslate = currentTranslate;
+        });
+
+        document.addEventListener("mouseup", () => {
+          if (isDown) {
+            isDown = false;
+            grid.style.cursor = "grab";
+            lastTime = performance.now();
+          }
+        });
+
+        grid.addEventListener("mousemove", (e) => {
+          if (!isDown) return;
+          const x = e.pageX;
+          const dx = x - startX;
+          
+          if (Math.abs(dx) > 5) {
+            hasDragged = true;
+          }
+
+          if (hasDragged) {
+            currentTranslate = dragStartTranslate + dx * 1.2;
+            checkBoundaries();
+            applyTransform(currentTranslate);
+          }
+        });
+
+        // Touch event handlers for mobile devices
+        let touchStartX;
+        let touchStartTranslate;
+
+        grid.addEventListener("touchstart", (e) => {
+          if (isTransitioning) return;
+          isDown = true;
+          isHovered = true;
+          touchStartX = e.touches[0].clientX;
+          touchStartTranslate = currentTranslate;
+        }, { passive: true });
+
+        grid.addEventListener("touchmove", (e) => {
+          if (!isDown) return;
+          const x = e.touches[0].clientX;
+          const dx = x - touchStartX;
+          
+          currentTranslate = touchStartTranslate + dx;
+          checkBoundaries();
+          applyTransform(currentTranslate);
+        }, { passive: true });
+
+        grid.addEventListener("touchend", () => {
+          if (isDown) {
+            isDown = false;
+            isHovered = false;
+            lastTime = performance.now();
+          }
+        }, { passive: true });
+
+        // Intercept and prevent links from navigating if user is dragging
+        grid.addEventListener("click", (e) => {
+          if (hasDragged) {
             e.preventDefault();
-            dragging = true;
-            startX = e.clientX;
-            startScrollLeft = grid.scrollLeft;
-            // compute some metrics
-            const trackRect = scrollbar.getBoundingClientRect();
-            const thumbRect = thumb.getBoundingClientRect();
-            const trackWidth = trackRect.width;
-            const thumbWidth = thumbRect.width;
-            const maxTranslatePx = trackWidth - thumbWidth;
-            const maxScrollLeft = grid.scrollWidth - grid.clientWidth;
-
-            const onPointerMove = (ev) => {
-              if (!dragging) return;
-              ev.preventDefault();
-              const dx = ev.clientX - startX;
-              // determine current thumb left in px based on startScrollLeft
-              const startLeftRatio = startScrollLeft / (maxScrollLeft || 1);
-              const startThumbLeftPx = startLeftRatio * maxTranslatePx;
-              let newLeftPx = startThumbLeftPx + dx;
-              newLeftPx = Math.max(0, Math.min(maxTranslatePx, newLeftPx));
-              const proportion =
-                maxTranslatePx > 0 ? newLeftPx / maxTranslatePx : 0;
-              const newScrollLeft = proportion * maxScrollLeft;
-              // set scrollLeft directly but throttle visual update
-              grid.scrollLeft = newScrollLeft;
-            };
-
-            const onPointerUp = (ev) => {
-              dragging = false;
-              document.removeEventListener("pointermove", onPointerMove);
-              document.removeEventListener("pointerup", onPointerUp);
-            };
-
-            document.addEventListener("pointermove", onPointerMove, {
-              passive: false,
-            });
-            document.addEventListener("pointerup", onPointerUp);
-          };
-
-          thumb.addEventListener("pointerdown", onPointerDown);
-          // Click on track to jump
-          scrollbar.addEventListener("click", (ev) => {
-            // ignore clicks on thumb (handled by drag)
-            if (ev.target === thumb) return;
-            const rect = scrollbar.getBoundingClientRect();
-            const clickX = ev.clientX - rect.left;
-            const trackWidth = rect.width;
-            const thumbWidth = thumb.getBoundingClientRect().width;
-            const maxTranslatePx = trackWidth - thumbWidth;
-            const proportion = Math.max(
-              0,
-              Math.min(1, (clickX - thumbWidth / 2) / maxTranslatePx),
-            );
-            const maxScrollLeft = grid.scrollWidth - grid.clientWidth;
-            grid.scrollTo({
-              left: proportion * maxScrollLeft,
-              behavior: "smooth",
-            });
-          });
-        })();
+            e.stopPropagation();
+          }
+        }, true);
       });
       let lastScrollTop = 0;
       const navbar = document.querySelector(".navbar");

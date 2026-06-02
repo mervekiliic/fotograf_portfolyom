@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event | Merve Kılıç</title>
+    <style>
+      /* 1. SAYFA GENELİ */
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        overflow-x: hidden;
+      }
+
+      body {
+        background-color: #000;
+        color: #fff;
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: clamp(15px, 5vw, 40px);
+        overflow-x: hidden;
+      }
+
+      /* 1.5 BAŞLIK RESPONSİF STİL */
+      h1 {
+        font-size: clamp(1.5rem, 8vw, 3.5rem);
+        letter-spacing: clamp(2px, 2vw, 10px);
+        margin: 0 0 clamp(20px, 5vw, 50px) 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        font-weight: 300;
+      }
+
+      /* 2. GERİ DÖN BUTONU */
+      .back-button {
+        display: inline-block;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.6);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 5px 0;
+        font-size: clamp(14px, 3vw, 20px);
+        letter-spacing: clamp(1px, 1.5vw, 3px);
+        text-transform: uppercase;
+        margin-bottom: clamp(30px, 8vw, 60px);
+        transition: all 0.4s ease;
+      }
+
+      .back-button:hover {
+        color: #fff;
+        border-bottom: 1px solid #fff;
+        padding-left: 10px;
+      }
+
+      .gallery {
+        column-count: 3;
+        column-gap: clamp(10px, 3vw, 20px);
+        padding-bottom: clamp(30px, 5vw, 50px);
+      }
+
+      /* 2. Resimlerin kutusunu sabitle */
+      .gallery-item {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: clamp(15px, 3vw, 20px);
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideUp 0.8s ease-out forwards;
+        backface-visibility: hidden;
+        -webkit-column-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      /* 3. Hover efektini sadeleştir ve zorla */
+      .gallery-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 4px;
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        transform: translateZ(0);
+        will-change: transform;
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.02) translateZ(0);
+        opacity: 1 !important;
+      }
+
+      @keyframes slideUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* 4. SIRALI GİRİŞ ANİMASYONU (Delay) */
+      .gallery-item:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .gallery-item:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .gallery-item:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .gallery-item:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .gallery-item:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+
+      /* RESPONSIVE BREAKPOINT'LER */
+      /* Tablet & Desktop Orta (900px+) */
+      @media (max-width: 1024px) {
+        .gallery {
+          column-count: 2;
+        }
+      }
+
+      /* Tablet (768px - 1024px) */
+      @media (max-width: 768px) {
+        .gallery {
+          column-count: 2;
+        }
+      }
+
+      /* Telefon Orta (480px - 600px) */
+      @media (max-width: 600px) {
+        .gallery {
+          column-count: 1;
+          column-gap: 0;
+        }
+      }
+
+      /* Telefon Küçük (<480px) */
+      @media (max-width: 480px) {
+        body {
+          padding: clamp(10px, 3vw, 15px);
+        }
+      }
+
+      /* Morluk Engelleyici ve Geri Butonu Stili */
+      #back-to-portfolio,
+      .back-button,
+      .back-button:visited {
+        color: rgba(255, 255, 255, 0.6) !important;
+        text-decoration: none;
+        transition: all 0.4s ease;
+      }
+      #back-to-portfolio:hover {
+        color: #fff !important;
+        padding-left: 10px;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      }
+
+      /* Dil Butonları Sağ Üst Sabit Konum */
+      .lang-switcher {
+        position: fixed;
+        right: clamp(15px, 4vw, 40px);
+        top: clamp(15px, 3vw, 35px);
+        z-index: 9999;
+        display: flex;
+        gap: clamp(8px, 2vw, 12px);
+        font-size: clamp(8px, 2vw, 11px);
+        letter-spacing: clamp(1px, 1vw, 2px);
+      }
+      .lang-switcher span {
+        cursor: pointer;
+        opacity: 0.4;
+        transition: 0.3s;
+      }
+      .lang-switcher span.active {
+        opacity: 1;
+        border-bottom: 1px solid white;
+      }
+
+      /* CATEGORY NAVIGATION */
+      .category-navigation {
+        margin-top: clamp(50px, 10vw, 100px);
+        border-top: 1px solid #222;
+        padding-top: clamp(30px, 5vw, 50px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .nav-cat-block {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 140px;
+      }
+
+      .nav-cat-block.prev {
+        text-align: left;
+      }
+
+      .nav-cat-block.next {
+        text-align: right;
+      }
+
+      .nav-cat-label {
+        font-size: clamp(12px, 2.5vw, 16px);
+        letter-spacing: clamp(1px, 1vw, 2px);
+        color: #555;
+        margin-bottom: 8px;
+        margin-top: 0;
+      }
+
+      .nav-cat-link {
+        color: #fff;
+        text-decoration: none;
+        font-size: clamp(1rem, 4vw, 1.8rem);
+        letter-spacing: clamp(1px, 1.5vw, 3px);
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+
+      .nav-cat-link:hover {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="lang-switcher">
+      <span onclick="setLanguage('tr')" id="lang-tr">TR</span>
+      <span class="separator">|</span>
+      <span onclick="setLanguage('en')" id="lang-en">EN</span>
+    </div>
+    <a href="index.html" class="lang-key back-button" id="back-to-portfolio"
+      >← PORTFOLIO</a
+    >
+
+    <h1 class="lang-key" id="event-page-title">EVENT</h1>
+
+    <div class="gallery">
+      <div class="gallery-item">
+        <img
+          src="photoevent1.webp"
+          alt="EVENT 1"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="photoevent2.webp"
+          alt="EVENT 2"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="photoevent3.webp"
+          alt="EVENT 3"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="photoevent4.webp"
+          alt="EVENT 4"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="photoevent5.webp"
+          alt="EVENT 5"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="photoevent6.webp"
+          alt="EVENT 6"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+    <div class="category-navigation">
+      <div class="nav-cat-block prev">
+        <p class="lang-key nav-cat-label" id="prev-cat-label">
+          PREVIOUS CATEGORY
+        </p>
+        <a
+          href="light-shadow.html"
+          class="lang-key nav-cat-link"
+          id="prev-cat-light"
+          >← LIGHT&SHADOW</a
+        >
+      </div>
+      <div class="nav-cat-block next">
+        <p class="lang-key nav-cat-label" id="next-cat-label">NEXT CATEGORY</p>
+        <a
+          href="street.html"
+          class="lang-key nav-cat-link"
+          id="next-cat-street-link"
+          >STREET →</a
+        >
+      </div>
+    </div>
+    <script>
+      const translations = {
+        en: {
+          "back-to-portfolio": "← PORTFOLIO",
+          "event-page-title": "EVENT",
+          "prev-cat-label": "PREVIOUS CATEGORY",
+          "next-cat-label": "NEXT CATEGORY",
+          "prev-cat-light": "← LIGHT & SHADOW",
+          "next-cat-street-link": "STREET →",
+        },
+        tr: {
+          "back-to-portfolio": "← PORTFOLYO",
+          "event-page-title": "ETKİNLİK",
+          "prev-cat-label": "ÖNCEKİ KATEGORİ",
+          "next-cat-label": "SIRADAKİ KATEGORİ",
+          "prev-cat-light": "← IŞIK & GÖLGE",
+          "next-cat-street-link": "SOKAK →",
+        },
+      };
+
+      function setLanguage(lang) {
+        const elements = document.querySelectorAll(".lang-key");
+        elements.forEach((el) => {
+          const id = el.getAttribute("id");
+          if (translations[lang] && translations[lang][id]) {
+            el.textContent = translations[lang][id];
+          }
+        });
+
+        const btnTr = document.getElementById("lang-tr");
+        const btnEn = document.getElementById("lang-en");
+        if (btnTr && btnEn) {
+          btnTr.classList.remove("active");
+          btnEn.classList.remove("active");
+          const activeBtn = document.getElementById("lang-" + lang);
+          if (activeBtn) activeBtn.classList.add("active");
+        }
+        localStorage.setItem("selectedLang", lang);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("selectedLang") || "en";
+        setLanguage(savedLang);
+      });
+    </script>
+  </body>
+</html>
