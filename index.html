@@ -182,17 +182,18 @@
         justify-content: flex-end; /* Yazıyı sağa yaslar */
         align-items: center;
         padding-right: 10%; /* Sağdan estetik boşluk */
+        overflow: hidden; /* Sağ taraftaki video taşmasını gizler */
       }
 
-      /* 4. ARKA PLAN FOTOĞRAFI */
+      /* 4. ARKA PLAN VİDEOSU */
       .hero-bg {
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
+        width: 112.4%; /* Sağdan %11 kırpmayı ekrana sığdırmak için genişliği %112.4 yapıyoruz (100% / 0.89) */
         height: 100%;
         object-fit: cover;
-        object-position: 20% center; /* Fotoğrafı sola kaydırır */
+        object-position: left center; /* Videonun solunu hizalayarak sağ tarafının kırpılmasını sağlıyoruz */
         opacity: 0.5; /* Yazının netliği için biraz daha kararttık */
         z-index: 1;
         -webkit-mask-image: linear-gradient(
@@ -572,11 +573,13 @@
           letter-spacing: 3px !important;
         }
 
-        /* 7. Arka plan fotoğrafı mobilde ortalı göster */
+        /* 7. Arka plan videosu mobilde ortalı göster */
         .hero-bg {
-          transform: none !important; /* Yakınlaştırmayı kapatır, fotoğraf orijinal uzaklığına döner */
-          width: 100% !important;
+          transform: none !important; /* Yakınlaştırmayı kapatır */
+          width: 112.4% !important; /* Sağdan %11 kırpmayı ekrana sığdır */
           left: 0 !important;
+          object-position: left center !important;
+          clip-path: none !important;
         }
 
         /* Mobil/tablet: yatay kaydırılabilir slide (tek satır) */
@@ -627,8 +630,10 @@
         }
 
         .hero-bg {
-          width: 100% !important;
+          width: 112.4% !important; /* Sağdan %11 kırpmayı ekrana sığdır */
           left: 0 !important;
+          object-position: left center !important;
+          clip-path: none !important;
         }
 
         .hero-text {
@@ -734,13 +739,9 @@
     </div>
 
     <section class="hero">
-      <img
-        src="kapaknew3.webp"
-        class="hero-bg"
-        alt="Kapak Fotoğrafı"
-        loading="eager"
-        decoding="async"
-      />
+      <video autoplay muted playsinline class="hero-bg">
+        <source src="hero.mp4" type="video/mp4" />
+      </video>
       <div class="hero-text">
         <h1>Merve Kılıç</h1>
         <p class="lang-key" id="hero-sub">PHOTOGRAPHY</p>
@@ -901,6 +902,12 @@
       document.addEventListener("DOMContentLoaded", () => {
         const savedLang = localStorage.getItem("selectedLang") || "en";
         setLanguage(savedLang);
+
+        // Videonun oynatma hızını biraz yavaşlatıyoruz
+        const video = document.querySelector(".hero-bg");
+        if (video) {
+          video.playbackRate = 1; // Orjinal hızı 1.0 iken yavaşlatmak için 0.6 yapıyoruz
+        }
       });
       // Loop slide (infinite carousel) functionality
       document.addEventListener("DOMContentLoaded", () => {
