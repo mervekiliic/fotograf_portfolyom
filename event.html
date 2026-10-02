@@ -309,9 +309,6 @@
       <button class="subcat-btn" id="btn-formula1" data-target="formula1" onclick="filterEvents('formula1')">
         <span class="lang-key" id="subcat-f1">FORMULA 1</span>
       </button>
-      <button class="subcat-btn" id="btn-all" data-target="all" onclick="filterEvents('all')">
-        <span class="lang-key" id="subcat-all">ALL EVENTS</span>
-      </button>
     </div>
 
     <!-- HALI FESTİVALİ HEADER -->
@@ -517,7 +514,6 @@
           "event-page-title": "EVENT",
           "subcat-carpet": "CARPET FESTIVAL",
           "subcat-f1": "FORMULA 1",
-          "subcat-all": "ALL EVENTS",
           "carpet-title": "Azerbaijan | Baku | Carpet Festival | May 2026",
           "carpet-desc": "Photographs from the Baku Carpet Festival held in May 2026, celebrating Azerbaijan’s rich weaving traditions and cultural heritage.",
           "f1-title": "AZERBAIJAN | BAKU | FORMULA 1 GRAND PRIX | 2026",
@@ -532,7 +528,6 @@
           "event-page-title": "ETKİNLİK",
           "subcat-carpet": "HALI FESTİVALİ",
           "subcat-f1": "FORMULA 1",
-          "subcat-all": "TÜM ETKİNLİKLER",
           "carpet-title": "Azerbaycan | Bakü | Halı Festivali | Mayıs 2026",
           "carpet-desc": "Azerbaycan'ın zengin dokuma geleneklerini ve kültürel mirasını kutlayan, Mayıs 2026'da düzenlenen Bakü Halı Festivali'nden fotoğraflar.",
           "f1-title": "AZERBAYCAN | BAKÜ | FORMULA 1 GRAND PRIX | 2026",
@@ -545,6 +540,10 @@
       };
 
       function filterEvents(category) {
+        if (category !== "formula1") {
+          category = "carpet";
+        }
+
         const buttons = document.querySelectorAll(".subcat-btn");
         buttons.forEach((btn) => {
           if (btn.getAttribute("data-target") === category) {
@@ -557,21 +556,18 @@
         const carpetHeader = document.getElementById("festival-header-carpet");
         const f1Header = document.getElementById("festival-header-f1");
 
-        if (category === "carpet") {
-          carpetHeader.style.display = "block";
-          f1Header.style.display = "none";
-        } else if (category === "formula1") {
+        if (category === "formula1") {
           carpetHeader.style.display = "none";
           f1Header.style.display = "block";
-        } else if (category === "all") {
+        } else {
           carpetHeader.style.display = "block";
-          f1Header.style.display = "block";
+          f1Header.style.display = "none";
         }
 
         const items = document.querySelectorAll(".gallery-item");
         items.forEach((item) => {
           const itemCat = item.getAttribute("data-category");
-          if (category === "all" || itemCat === category) {
+          if (itemCat === category) {
             item.style.display = "inline-block";
             item.style.animation = "none";
             item.offsetHeight; // Reflow
@@ -608,7 +604,7 @@
 
       document.addEventListener("DOMContentLoaded", () => {
         const hash = window.location.hash.replace("#", "");
-        if (hash === "formula1" || hash === "carpet" || hash === "all") {
+        if (hash === "formula1" || hash === "carpet") {
           filterEvents(hash);
         } else {
           filterEvents("carpet");
