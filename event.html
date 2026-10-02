@@ -27,7 +27,7 @@
       h1 {
         font-size: clamp(1.5rem, 8vw, 3.5rem);
         letter-spacing: clamp(2px, 2vw, 10px);
-        margin: 0 0 clamp(20px, 5vw, 50px) 0;
+        margin: 0 0 clamp(15px, 3vw, 30px) 0;
         word-wrap: break-word;
         overflow-wrap: break-word;
         hyphens: auto;
@@ -44,7 +44,7 @@
         font-size: clamp(14px, 3vw, 20px);
         letter-spacing: clamp(1px, 1.5vw, 3px);
         text-transform: uppercase;
-        margin-bottom: clamp(30px, 8vw, 60px);
+        margin-bottom: clamp(20px, 5vw, 40px);
         transition: all 0.4s ease;
       }
 
@@ -54,13 +54,58 @@
         padding-left: 10px;
       }
 
+      /* ETKİNLİK ALT KATEGORİ ÜST BAR (SUB-CATEGORY BAR) */
+      .subcat-bar {
+        display: flex;
+        gap: clamp(15px, 4vw, 35px);
+        margin-bottom: clamp(30px, 6vw, 50px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 15px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .subcat-btn {
+        background: transparent;
+        border: none;
+        color: rgba(255, 255, 255, 0.45);
+        font-size: clamp(11px, 2.2vw, 14px);
+        letter-spacing: clamp(1.5px, 1.5vw, 3px);
+        text-transform: uppercase;
+        font-family: inherit;
+        padding: 8px 0;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .subcat-btn:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      .subcat-btn.active {
+        color: #ffffff;
+        font-weight: bold;
+      }
+
+      .subcat-btn.active::after {
+        content: "";
+        position: absolute;
+        bottom: -16px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #ffffff;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+      }
+
       .gallery {
         column-count: 3;
         column-gap: clamp(10px, 3vw, 20px);
         padding-bottom: clamp(30px, 5vw, 50px);
       }
 
-      /* 2. Resimlerin kutusunu sabitle */
+      /* Resimlerin kutusunu sabitle */
       .gallery-item {
         display: inline-block;
         width: 100%;
@@ -73,7 +118,6 @@
         break-inside: avoid;
       }
 
-      /* 3. Hover efektini sadeleştir ve zorla */
       .gallery-item img {
         width: 100%;
         height: auto;
@@ -96,51 +140,31 @@
         }
       }
 
-      /* 4. SIRALI GİRİŞ ANİMASYONU (Delay) */
-      .gallery-item:nth-child(1) {
-        animation-delay: 0.1s;
-      }
-      .gallery-item:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-      .gallery-item:nth-child(3) {
-        animation-delay: 0.3s;
-      }
-      .gallery-item:nth-child(4) {
-        animation-delay: 0.4s;
-      }
-      .gallery-item:nth-child(5) {
-        animation-delay: 0.5s;
-      }
-      .gallery-item:nth-child(6) {
-        animation-delay: 0.6s;
-      }
-      .gallery-item:nth-child(7) {
-        animation-delay: 0.7s;
-      }
-      .gallery-item:nth-child(8) {
-        animation-delay: 0.8s;
-      }
-      .gallery-item:nth-child(9) {
-        animation-delay: 0.9s;
-      }
+      /* SIRALI GİRİŞ ANİMASYONU */
+      .gallery-item:nth-child(1) { animation-delay: 0.05s; }
+      .gallery-item:nth-child(2) { animation-delay: 0.1s; }
+      .gallery-item:nth-child(3) { animation-delay: 0.15s; }
+      .gallery-item:nth-child(4) { animation-delay: 0.2s; }
+      .gallery-item:nth-child(5) { animation-delay: 0.25s; }
+      .gallery-item:nth-child(6) { animation-delay: 0.3s; }
+      .gallery-item:nth-child(7) { animation-delay: 0.35s; }
+      .gallery-item:nth-child(8) { animation-delay: 0.4s; }
+      .gallery-item:nth-child(9) { animation-delay: 0.45s; }
+      .gallery-item:nth-child(10) { animation-delay: 0.5s; }
 
       /* RESPONSIVE BREAKPOINT'LER */
-      /* Tablet & Desktop Orta (900px+) */
       @media (max-width: 1024px) {
         .gallery {
           column-count: 2;
         }
       }
 
-      /* Tablet (768px - 1024px) */
       @media (max-width: 768px) {
         .gallery {
           column-count: 2;
         }
       }
 
-      /* Telefon Orta (480px - 600px) */
       @media (max-width: 600px) {
         .gallery {
           column-count: 1;
@@ -148,7 +172,6 @@
         }
       }
 
-      /* Telefon Küçük (<480px) */
       @media (max-width: 480px) {
         body {
           padding: clamp(10px, 3vw, 15px);
@@ -278,87 +301,193 @@
 
     <h1 class="lang-key" id="event-page-title">EVENT</h1>
 
-    <div class="festival-header">
-      <h2 class="lang-key festival-title" id="festival-title">Azerbaijan | Baku | Carpet Festival | May 2026</h2>
-      <p class="lang-key festival-description" id="festival-desc">
+    <!-- ETKİNLİK ALT KATEGORİ SEÇİM ALANI -->
+    <div class="subcat-bar">
+      <button class="subcat-btn active" id="btn-carpet" data-target="carpet" onclick="filterEvents('carpet')">
+        <span class="lang-key" id="subcat-carpet">CARPET FESTIVAL</span>
+      </button>
+      <button class="subcat-btn" id="btn-formula1" data-target="formula1" onclick="filterEvents('formula1')">
+        <span class="lang-key" id="subcat-f1">FORMULA 1</span>
+      </button>
+      <button class="subcat-btn" id="btn-all" data-target="all" onclick="filterEvents('all')">
+        <span class="lang-key" id="subcat-all">ALL EVENTS</span>
+      </button>
+    </div>
+
+    <!-- HALI FESTİVALİ HEADER -->
+    <div id="festival-header-carpet" class="festival-header">
+      <h2 class="lang-key festival-title" id="carpet-title">Azerbaijan | Baku | Carpet Festival | May 2026</h2>
+      <p class="lang-key festival-description" id="carpet-desc">
         Photographs from the Baku Carpet Festival held in May 2026, celebrating Azerbaijan’s rich weaving traditions and cultural heritage.
       </p>
     </div>
 
+    <!-- FORMULA 1 HEADER -->
+    <div id="festival-header-f1" class="festival-header" style="display: none;">
+      <h2 class="lang-key festival-title" id="f1-title">AZERBAIJAN | BAKU | FORMULA 1 GRAND PRIX | 2026</h2>
+      <p class="lang-key festival-description" id="f1-desc">
+        A collection of photographs from the 2026 Formula 1 Azerbaijan Grand Prix, held on the streets of Baku on 26 September 2026. The series captures the racing action, the cars, and the atmosphere of one of the city's major international sporting events.
+      </p>
+    </div>
+
     <div class="gallery">
-      <div class="gallery-item">
+      <!-- HALI FESTİVALİ FOTOĞRAFLARI -->
+      <div class="gallery-item" data-category="carpet">
         <img
           src="mayevent1.webp"
-          alt="EVENT 1"
+          alt="CARPET FESTIVAL 1"
           loading="lazy"
           decoding="async"
         />
       </div>
-      <div class="gallery-item">
+      <div class="gallery-item" data-category="carpet">
         <img
           src="mayevent2.webp"
-          alt="EVENT 2"
+          alt="CARPET FESTIVAL 2"
           loading="lazy"
           decoding="async"
         />
       </div>
-      <div class="gallery-item">
+      <div class="gallery-item" data-category="carpet">
         <img
           src="mayevent3.webp"
-          alt="EVENT 3"
+          alt="CARPET FESTIVAL 3"
           loading="lazy"
           decoding="async"
         />
       </div>
-      <div class="gallery-item">
+      <div class="gallery-item" data-category="carpet">
         <img
           src="mayevent4.webp"
-          alt="EVENT 4"
+          alt="CARPET FESTIVAL 4"
           loading="lazy"
           decoding="async"
         />
       </div>
-      <div class="gallery-item">
+      <div class="gallery-item" data-category="carpet">
         <img
           src="mayevent5.webp"
-          alt="EVENT 5"
+          alt="CARPET FESTIVAL 5"
           loading="lazy"
           decoding="async"
         />
       </div>
-      <div class="gallery-item">
+      <div class="gallery-item" data-category="carpet">
         <img
           src="mayevent6.webp"
-          alt="EVENT 6"
+          alt="CARPET FESTIVAL 6"
           loading="lazy"
           decoding="async"
         />
       </div>
-      <div class="gallery-item">
+      <div class="gallery-item" data-category="carpet">
         <img
           src="mayevent7.webp"
-          alt="EVENT 7"
+          alt="CARPET FESTIVAL 7"
           loading="lazy"
           decoding="async"
         />
       </div>
-      <div class="gallery-item">
+      <div class="gallery-item" data-category="carpet">
         <img
           src="mayevent8.webp"
-          alt="EVENT 8"
+          alt="CARPET FESTIVAL 8"
           loading="lazy"
           decoding="async"
         />
       </div>
-      <div class="gallery-item">
+      <div class="gallery-item" data-category="carpet">
         <img
           src="mayevent9.webp"
-          alt="EVENT 9"
+          alt="CARPET FESTIVAL 9"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <!-- FORMULA 1 FOTOĞRAFLARI -->
+      <div class="gallery-item" data-category="formula1">
+        <img
+          src="formula1new1.webp"
+          alt="FORMULA 1 GRAND PRIX 1"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item" data-category="formula1">
+        <img
+          src="formula1new2.webp"
+          alt="FORMULA 1 GRAND PRIX 2"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item" data-category="formula1">
+        <img
+          src="formula1new3.webp"
+          alt="FORMULA 1 GRAND PRIX 3"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item" data-category="formula1">
+        <img
+          src="formula1new4.webp"
+          alt="FORMULA 1 GRAND PRIX 4"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item" data-category="formula1">
+        <img
+          src="formula1new5.webp"
+          alt="FORMULA 1 GRAND PRIX 5"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item" data-category="formula1">
+        <img
+          src="formula1new6.webp"
+          alt="FORMULA 1 GRAND PRIX 6"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item" data-category="formula1">
+        <img
+          src="formula1new7.webp"
+          alt="FORMULA 1 GRAND PRIX 7"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item" data-category="formula1">
+        <img
+          src="formula1new8.webp"
+          alt="FORMULA 1 GRAND PRIX 8"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item" data-category="formula1">
+        <img
+          src="formula1new9.webp"
+          alt="FORMULA 1 GRAND PRIX 9"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="gallery-item" data-category="formula1">
+        <img
+          src="formula1new10.webp"
+          alt="FORMULA 1 GRAND PRIX 10"
           loading="lazy"
           decoding="async"
         />
       </div>
     </div>
+
     <div class="category-navigation">
       <div class="nav-cat-block prev">
         <p class="lang-key nav-cat-label" id="prev-cat-label">
@@ -386,8 +515,13 @@
         en: {
           "back-to-portfolio": "← PORTFOLIO",
           "event-page-title": "EVENT",
-          "festival-title": "Azerbaijan | Baku | Carpet Festival | May 2026",
-          "festival-desc": "Photographs from the Baku Carpet Festival held in May 2026, celebrating Azerbaijan’s rich weaving traditions and cultural heritage.",
+          "subcat-carpet": "CARPET FESTIVAL",
+          "subcat-f1": "FORMULA 1",
+          "subcat-all": "ALL EVENTS",
+          "carpet-title": "Azerbaijan | Baku | Carpet Festival | May 2026",
+          "carpet-desc": "Photographs from the Baku Carpet Festival held in May 2026, celebrating Azerbaijan’s rich weaving traditions and cultural heritage.",
+          "f1-title": "AZERBAIJAN | BAKU | FORMULA 1 GRAND PRIX | 2026",
+          "f1-desc": "A collection of photographs from the 2026 Formula 1 Azerbaijan Grand Prix, held on the streets of Baku on 26 September 2026. The series captures the racing action, the cars, and the atmosphere of one of the city's major international sporting events.",
           "prev-cat-label": "PREVIOUS CATEGORY",
           "next-cat-label": "NEXT CATEGORY",
           "prev-cat-street": "← STREET",
@@ -396,14 +530,61 @@
         tr: {
           "back-to-portfolio": "← PORTFOLYO",
           "event-page-title": "ETKİNLİK",
-          "festival-title": "Azerbaycan | Bakü | Halı Festivali | Mayıs 2026",
-          "festival-desc": "Azerbaycan'ın zengin dokuma geleneklerini ve kültürel mirasını kutlayan, Mayıs 2026'da düzenlenen Bakü Halı Festivali'nden fotoğraflar.",
+          "subcat-carpet": "HALI FESTİVALİ",
+          "subcat-f1": "FORMULA 1",
+          "subcat-all": "TÜM ETKİNLİKLER",
+          "carpet-title": "Azerbaycan | Bakü | Halı Festivali | Mayıs 2026",
+          "carpet-desc": "Azerbaycan'ın zengin dokuma geleneklerini ve kültürel mirasını kutlayan, Mayıs 2026'da düzenlenen Bakü Halı Festivali'nden fotoğraflar.",
+          "f1-title": "AZERBAYCAN | BAKÜ | FORMULA 1 GRAND PRIX | 2026",
+          "f1-desc": "26 Eylül 2026'da Bakü sokaklarında düzenlenen 2026 Formula 1 Azerbaycan Grand Prix'sinden çekilen fotoğraflardan oluşan bir koleksiyon. Seri, şehrin en büyük uluslararası spor etkinliklerinden birinin yarış heyecanını, araçlarını ve atmosferini yakalıyor.",
           "prev-cat-label": "ÖNCEKİ KATEGORİ",
           "next-cat-label": "SIRADAKİ KATEGORİ",
           "prev-cat-street": "← SOKAK",
           "next-cat-architectural": "MİMARİ →",
         },
       };
+
+      function filterEvents(category) {
+        const buttons = document.querySelectorAll(".subcat-btn");
+        buttons.forEach((btn) => {
+          if (btn.getAttribute("data-target") === category) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        });
+
+        const carpetHeader = document.getElementById("festival-header-carpet");
+        const f1Header = document.getElementById("festival-header-f1");
+
+        if (category === "carpet") {
+          carpetHeader.style.display = "block";
+          f1Header.style.display = "none";
+        } else if (category === "formula1") {
+          carpetHeader.style.display = "none";
+          f1Header.style.display = "block";
+        } else if (category === "all") {
+          carpetHeader.style.display = "block";
+          f1Header.style.display = "block";
+        }
+
+        const items = document.querySelectorAll(".gallery-item");
+        items.forEach((item) => {
+          const itemCat = item.getAttribute("data-category");
+          if (category === "all" || itemCat === category) {
+            item.style.display = "inline-block";
+            item.style.animation = "none";
+            item.offsetHeight; // Reflow
+            item.style.animation = "slideUp 0.8s ease-out forwards";
+          } else {
+            item.style.display = "none";
+          }
+        });
+
+        if (window.location.hash !== "#" + category) {
+          history.replaceState(null, null, "#" + category);
+        }
+      }
 
       function setLanguage(lang) {
         const elements = document.querySelectorAll(".lang-key");
@@ -426,6 +607,12 @@
       }
 
       document.addEventListener("DOMContentLoaded", () => {
+        const hash = window.location.hash.replace("#", "");
+        if (hash === "formula1" || hash === "carpet" || hash === "all") {
+          filterEvents(hash);
+        } else {
+          filterEvents("carpet");
+        }
         const savedLang = localStorage.getItem("selectedLang") || "en";
         setLanguage(savedLang);
       });
